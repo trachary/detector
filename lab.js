@@ -1,5 +1,10 @@
 console.log("Hello world!");
 
+console.log("Screen data:");
+console.log("width: " + screen.width);
+console.log("height: " + screen.height);
+alert(screen.width + " x " + screen.height);
+
 navigator.getBattery().then(function(battery) {
   console.log(battery.level);
   document.write(battery.level);
