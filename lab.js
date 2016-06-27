@@ -1,3 +1,11 @@
 console.log("Hello world!");
 
-document.getElementById('UserAgent').value = navigator.userAgent;
+navigator.getBattery().then(function(battery) {
+  console.log(battery.level);
+  document.write(battery.level);
+  // ... and any subsequent updates.
+  battery.onlevelchange = function() {
+    console.log(this.level);
+    document.write(this.level);
+  };
+});
