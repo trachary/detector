@@ -21,11 +21,11 @@ function handleOrientation(event) {
   );
   //document.write("abg: " + alpha + " " + beta + " " + gamma );
 
-  if (alpha == null && beta == null && gamma == null) {
-  	console.log("This is not clean input.");
-  } else {
-  	document.write("Welcome!");
-  }
+  // if (alpha == null && beta == null && gamma == null) {
+  // 	console.log("This is not clean input.");
+  // } else {
+  // 	document.write("Welcome!");
+  // }
 }
 
   document.addEventListener("click", function( event ) {
