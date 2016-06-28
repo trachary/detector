@@ -15,6 +15,9 @@ document.write("screen width: " + screen.width
 
 
 window.addEventListener("deviceorientation", handleOrientation, true);
+document.addEventListener("click", handleClick, false);
+document.addEventListener("wheel", handleWheel);
+
 
 function handleOrientation(event) {
 	var absolute = event.absolute;
@@ -22,28 +25,37 @@ function handleOrientation(event) {
 	var beta     = event.beta;
 	var gamma    = event.gamma;
 
-  // Do stuff with the new orientation data
 	console.log("Orientation data:"
 		+ "\nalpha: " + alpha
 		+ "\nbeta: " + beta
 		+ "\ngamma: " + gamma
 	);
-  //document.write("abg: " + alpha + " " + beta + " " + gamma );
-
-  // if (alpha == null && beta == null && gamma == null) {
-  // 	console.log("This is not clean input.");
-  // } else {
-  // 	document.write("Welcome!");
-  // }
 }
 
-document.addEventListener("click", function( event ) {
-    // display the current click count inside the clicked div
+function handleClick(event) {
     console.log("click:"
     	+ "\nx: " + event.screenX 
     	+ "\ny: " + event.screenY
     );
-}, false);
+
+    if ( event.altKey || event.ctrlKey || event.metaKey ) {
+    	computer();
+    }
+
+    if (event.which == 2) {
+    	handleWheel();
+    }
+}
+
+function handleWheel(event) {
+	console.log("Jesus took the wheel.");
+	computer();
+}
+
+function computer() {
+	console.log("This is a computer");
+}
+
 
 
 
