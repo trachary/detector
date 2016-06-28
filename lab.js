@@ -28,6 +28,16 @@ function handleOrientation(event) {
   }
 }
 
+  document.addEventListener("click", function( event ) {
+    // display the current click count inside the clicked div
+    document.write("click:"
+    	+ "\nx: " + event.screenX 
+    	+ "\ny: " + event.screenY
+    	+ "\npressure: " + event.mozPressure
+    );
+  }, false);
+
+
 // navigator.getBattery().then(function(battery) {
 //   console.log(battery.level);
 //   document.write(battery.level);
