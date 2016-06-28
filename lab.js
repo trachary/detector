@@ -19,7 +19,13 @@ function handleOrientation(event) {
   	+ "\nbeta: " + beta
   	+ "\ngamma: " + gamma
   );
-  document.write("abg:" + alpha + " " + beta + " " + gamma );
+  //document.write("abg: " + alpha + " " + beta + " " + gamma );
+
+  if (alpha == null && beta == null && gamma == null) {
+  	console.log("This is not clean input.");
+  } else {
+  	document.write("Welcome!");
+  }
 }
 
 // navigator.getBattery().then(function(battery) {
