@@ -136,21 +136,21 @@ function detectDevice() {
 
 navigator.getBattery().then(function(battery) {
   
-  	power.innerHTML = battery.level + "%";
+  	percent.innerHTML = battery.level + "%";
 
-  	if (this.charging) charging.innerHTML = "Device is plugged in.";
-  	else charging.innerHTML = "Device is NOT plugged in.";
+  	if (battery.charging) power.innerHTML = "Device is plugged in.";
+  	else power.innerHTML = "Device is NOT plugged in.";
   
   	// ... and any subsequent updates.
   	battery.onlevelchange = function() {
-    	power.innerHTML = this.level + "%";
+    	percent.innerHTML = this.level + "%";
   	};
 
   	battery.onchargingchange = function() {
-  		if (this.charging) {
-  			charging.innerHTML = "Device is plugged in."
+  		if (battery.charging) {
+  			power.innerHTML = "Device is plugged in."
   		} else  {
-  			charging.innerHTML = "Device is NOT plugged in."
+  			power.innerHTML = "Device is NOT plugged in."
   		}
   	}
 
