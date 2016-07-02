@@ -8,6 +8,8 @@ var power = document.querySelector('.power');
 var percent = document.querySelector('.percent');
 var gyro = document.querySelector('.gyro');
 var wheel = document.querySelector('.wheel');
+var quickGuess = document.querySelector('.quick-guess');
+var longGuess = document.querySelector('.long-guess');
 
 // Init vars for detection
 var clicked = false;
@@ -37,8 +39,10 @@ sizes.innerHTML = "screen width: " + screen.width
 
 // Set data display defaults
 wheel.innerHTML = "No wheel detected yet.";
+longGuess.innerHTML = "...";
 
-//detectDevice();
+// Quick-detect
+quickGuess.innerHTML = "" + detectDevice();
 
 
 //////////
@@ -94,11 +98,7 @@ function handleClick(event) {
 function handleWheel(event) {
 	scrolled = true;
 	wheel.innerHTML = "Wheel movement detected.";
-	computer();
-}
-
-function computer() {
-	console.log("This is a computer");
+    longDetect();
 }
 
 
@@ -117,20 +117,32 @@ function checkHandles() {
 
 function detectDevice() {
 	console.log("Detecting device ...");
-	document.write("<br/>");
+
+	var guess = "";
 
 	var handles = checkHandles();
 	if (handles == 1) {
-		document.write("This is not a mobile device.");
+		guess = "This is NOT a clean mobile device." 
+			+ "\nConfidence: high"
+			+ "\nReasons: scroll wheel detected";
 	} else if (handles == 2) {
-		document.write("This is a mobile device");
-	}
+		guess = "This is a clean mobile device."
+            + "\nConfidence: moderate"
+            + "\nReasons: functioning gyroscope.";
+	} else {
+        guess = "This is NOT a clean mobile device."
+            + "\nConfidence: moderate"
+            + "\nReasons: no functioning gyroscope.";
+    }
+
+	if (screen.height < window.innerHeight) {}
+
+	return guess;
+}
 
 
-	if (screen.height < window.innerHeight) {
-
-	}
-
+function longDetect() {
+    longGuess.innerHTML = detectDevice();
 }
 
 
