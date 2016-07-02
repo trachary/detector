@@ -1,38 +1,44 @@
+
+
 console.log("Hello world!");
 
-console.log("Screen data:"
-	+ "\nscreen width: " + screen.width
-	+ "\nscreen height: " + screen.height
-	+ "\nwindow width: " + window.innerWidth
-	+ "\nwindow height: " + window.innerHeight);
+// Init vars for document
+var sizes = document.querySelector('.sizes');
+var power = document.querySelector('.power');
+var percent = document.querySelector('.percent');
+var gyro = document.querySelector('.gyro');
+var wheel = document.querySelector('.wheel');
 
-document.write("screen width: " + screen.width
-	+ "<br/>screen height: " + screen.height
-	+ "<br/>window width: " + window.innerWidth
-	+ "<br/>window height: " + window.innerHeight);
+// Init vars for detection
+var clicked = false;
+var scrolled = false;
+var rotated = false;
+var hasGyro = false;
 
-//alert(screen.width + " x " + screen.height);
+// Init other gyro vars
+var initAlpha = null;
+var initBeta = null;
+var initGamma = null;
+
+// Add event listeners
+window.addEventListener("deviceorientation", handleOrientation, true);
+document.addEventListener("click", handleClick, false);
+document.addEventListener("wheel", handleWheel);
 
 
 //////////
 
 
-var clicked = false;
-var scrolled = false;
+// Get screen data
+sizes.innerHTML = "screen width: " + screen.width
+	+ "\nscreen height: " + screen.height
+	+ "\nwindow width: " + window.innerWidth
+	+ "\nwindow height: " + window.innerHeight;
 
-var rotated = false;
-var hasGyro = false;
-var initAlpha = null;
-var initBeta = null;
-var initGamma = null;
+// Set data display defaults
+wheel.innerHTML = "No wheel detected yet.";
 
-
-
-window.addEventListener("deviceorientation", handleOrientation, true);
-document.addEventListener("click", handleClick, false);
-document.addEventListener("wheel", handleWheel);
-
-detectDevice();
+//detectDevice();
 
 
 //////////
@@ -47,11 +53,9 @@ function handleOrientation(event) {
 	var beta     = event.beta;
 	var gamma    = event.gamma;
 
-	document.write("Orientation data:"
-		+ "\nalpha: " + alpha
+	gyro.innerHTML = "alpha: " + alpha
 		+ "\nbeta: " + beta
-		+ "\ngamma: " + gamma
-	);
+		+ "\ngamma: " + gamma;
 
 	// Check that gyro returns values
 	if (alpha != null && beta != null && gamma != null) {
@@ -89,7 +93,7 @@ function handleClick(event) {
 
 function handleWheel(event) {
 	scrolled = true;
-	console.log("Jesus took the wheel.");
+	wheel.innerHTML = "Wheel movement detected.";
 	computer();
 }
 
@@ -130,27 +134,24 @@ function detectDevice() {
 }
 
 
-
-
-// navigator.getBattery().then(function(battery) {
-//   console.log(battery.level);
-//   document.write(battery.level);
-//   document.write("<br/>");
+navigator.getBattery().then(function(battery) {
   
-//   // ... and any subsequent updates.
-//   battery.onlevelchange = function() {
-//     console.log(this.level);
-//     document.write(this.level);
-//   };
+  	power.innerHTML = battery.level + "%";
 
-//   battery.onchargingchange = function() {
-//   	if (this.charging) {
-//   		console.log("plugged in");
-//   		document.write("plugged in<br/>");
-//   	} else  {
-//   		console.log("unplugged");
-//   		document.write("unplugged<br/>");
-//   	}
-//   }
+  	if (this.charging) charging.innerHTML = "Device is plugged in.";
+  	else charging.innerHTML = "Device is NOT plugged in.";
+  
+  	// ... and any subsequent updates.
+  	battery.onlevelchange = function() {
+    	power.innerHTML = this.level + "%";
+  	};
 
-// });
+  	battery.onchargingchange = function() {
+  		if (this.charging) {
+  			charging.innerHTML = "Device is plugged in."
+  		} else  {
+  			charging.innerHTML = "Device is NOT plugged in."
+  		}
+  	}
+
+});
