@@ -3,6 +3,8 @@
 console.log("Hello world!");
 
 // Init vars for document
+var ua = document.querySelector('.ua');
+var oscpu = document.querySelector('.oscpu');
 var sizes = document.querySelector('.sizes');
 var power = document.querySelector('.power');
 var percent = document.querySelector('.percent');
@@ -31,6 +33,9 @@ document.addEventListener("wheel", handleWheel);
 //////////
 
 
+// Get OS data
+ua.innerHTML = "OS (UA): " + navigator.userAgent;
+
 // Get screen data
 sizes.innerHTML = "screen width: " + screen.width
 	+ "\nscreen height: " + screen.height
@@ -43,6 +48,8 @@ longGuess.innerHTML = "...";
 
 // Quick-detect
 quickGuess.innerHTML = "" + detectDevice();
+
+console.log(navigator);
 
 
 //////////
@@ -116,7 +123,6 @@ function checkHandles() {
 
 function detectDevice() {
 	console.log("Detecting device ...");
-    alert("detect launch" + hasGyro);
 
 	var guess = "";
 
