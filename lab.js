@@ -73,7 +73,6 @@ function handleOrientation(event) {
  	 	} else if (alpha != initAlpha && beta != initBeta && gamma != initGamma) {
  	 	    rotated = true;
             longDetect();
-            alert("long detected");
  	 	} // end else 
 	} // end outer if
 } // end handleOrientation
@@ -117,6 +116,7 @@ function checkHandles() {
 
 function detectDevice() {
 	console.log("Detecting device ...");
+    alert("detect launch" + hasGyro);
 
 	var guess = "";
 
