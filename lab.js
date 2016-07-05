@@ -70,10 +70,10 @@ function handleOrientation(event) {
  	 		initAlpha = alpha;
  	 		initBeta = beta;
  	 		initGamma = gamma;
- 	 	} else {
- 	 		if (alpha != initAlpha && beta != initBeta && gamma != initGamma) {
- 	 			rotated = true;
- 	 		}
+            alert("Setting initial values");
+ 	 	} else if (alpha != initAlpha && beta != initBeta && gamma != initGamma) {
+ 	 	    rotated = true;
+            longDetect();
  	 	} // end else 
 	} // end outer if
 } // end handleOrientation
