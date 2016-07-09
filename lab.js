@@ -1,5 +1,6 @@
 
 
+console.time("full");
 console.log("Hello world!");
 
 // Init vars for document
@@ -192,3 +193,6 @@ navigator.getBattery().then(function(battery) {
     }
 
 });
+
+
+console.timeEnd("full");
