@@ -15,11 +15,11 @@ document.addEventListener('keydown', handleKey, false);
 body.addEventListener("touchstart", handleTouch, false);
 
 function handleKey() {
-    document.write("Key pressed. ");
+    document.write("<div style='height:900px;width:900px;background:red'/>");
 }
 
 function handleTouch() {
     if (numTaps > 1) { 
-        document.write("Touched. ");
+        document.write("<div style='height:900px;width:900px;background:blue'/>");
     }
 }
