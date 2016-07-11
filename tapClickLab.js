@@ -3,7 +3,7 @@
  * Author: Zachary Liou
  * Date Created: 2016 July 11
  * Purpose: Determine whether taps and clicks are registered differently.
- * Conclusion: TBD
+ * Conclusion: Clicks and taps are registered differently.
  */
 
 
@@ -16,7 +16,7 @@ body.onclick = showAlert;
 body.addEventListener("touchstart", handleStart, false);
 
 function showAlert() {
-    alert("jkl;");
+    alert("clicked");
 }
 
 function handleStart() {
