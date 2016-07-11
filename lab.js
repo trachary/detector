@@ -14,6 +14,12 @@ var wheel = document.querySelector('.wheel');
 var quickGuess = document.querySelector('.quick-guess');
 var longGuess = document.querySelector('.long-guess');
 
+// Init list of keywords
+var keywords = [
+    "Macintosh",
+    "Ubuntu"
+];
+
 // Init vars for detection
 var keyword = false;
 var clicked = false;
@@ -39,11 +45,6 @@ document.addEventListener("wheel", handleWheel);
 var uaString = navigator.userAgent;
 ua.innerHTML = "OS (UA): " + navigator.userAgent;
 
-// Detect substrings in UA
-var keywords = [
-    "Macintosh",
-    "Intel"
-];
 for (i = 0; i < keywords.length; ++i) {
     if (~uaString.indexOf(keywords[i])) {
         ua.innerHTML += "<br/>Keyword \"" + keywords[i] + "\" detected!";
