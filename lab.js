@@ -1,9 +1,9 @@
 
+console.time("timer-to-ori");          // START TIMER /////////////////////////////
 
 //console.time("full");
 console.log("Hello world!");
 
-console.time("timer");          // START TIMER /////////////////////////////
 
 // Init vars for document
 var ua = document.querySelector('.ua');
@@ -39,7 +39,6 @@ window.addEventListener("deviceorientation", handleOrientation, true);
 document.addEventListener("click", handleClick, false);
 document.addEventListener("wheel", handleWheel);
 
-console.timeEnd("timer");       // STOP TIMER //////////////////////////////
 
 //////////
 
@@ -57,11 +56,14 @@ for (i = 0; i < keywords.length; ++i) {
     }
 }
 
+
+
 // Get screen data
 sizes.innerHTML = "screen width: " + screen.width
 + "\nscreen height: " + screen.height
 + "\nwindow width: " + window.innerWidth
 + "\nwindow height: " + window.innerHeight;
+
 
 // Set data display defaults
 wheel.innerHTML = "No wheel detected yet.";
@@ -123,6 +125,7 @@ function handleClick(event) {
 
 
 function handleWheel(event) {
+console.timeEnd("timer-to-ori");       // STOP TIMER //////////////////////////////
     scrolled = true;
     wheel.innerHTML = "Wheel movement detected.";
     longDetect();

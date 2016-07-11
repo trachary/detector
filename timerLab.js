@@ -5,55 +5,40 @@
  */
 
 
-/*
- * Prepare document
- */
-
-/*
- * Time functionality
- */
 console.time("timer");
+console.time("to-ori");
 
-// Bind HTML elements
-var ua = document.querySelector('.ua');
-var oscpu = document.querySelector('.oscpu');
-var sizes = document.querySelector('.sizes');
-var power = document.querySelector('.power');
-var percent = document.querySelector('.percent');
-var gyro = document.querySelector('.gyro');
-var wheel = document.querySelector('.wheel');
-var quickGuess = document.querySelector('.quick-guess');
-var longGuess = document.querySelector('.long-guess');
+var TIME_LIMIT = 200;
+var flag = false;
+var timeoutID = window.setTimeout(stopTimer, TIME_LIMIT);
 
-// Init vars for detection
-var keyword = false;
-var clicked = false;
-var scrolled = false;
-var rotated = false;
-var hasGyro = false;
-
-// Init other gyro vars
-var initAlpha = null;
-var initBeta = null;
-var initGamma = null;
-
-// Add event listeners
 window.addEventListener("deviceorientation", handleOrientation, true);
-document.addEventListener("click", handleClick, false);
-document.addEventListener("wheel", handleWheel);
+
+console.log("Starting timer ...");
 
 
+function stopTimer() {
+    console.timeEnd("timer");
+    console.log("Timer stopped.");
+    if (flag) {
+        console.log("The flag has been set.");
+    } else {
+        console.log("The flag has NOT been set.");
+    }
+}
 
+function handleOrientation(event) {
+    console.timeEnd("to-ori");
+    var absolute = event.absolute;
+    var alpha    = event.alpha;
+    var beta     = event.beta;
+    var gamma    = event.gamma;
 
+    // Check that gyro returns values
+    if (alpha != null && beta != null && gamma != null) {
+        console.log("There is a gyro!");
+    }
 
-
-
-
-
-console.timeEnd("timer");
-
-
-/*
- * Functions below
- */
+    flag = true;
+} // end handleOrientation
 
