@@ -8,15 +8,18 @@
 
 
 var body = document.getElementById("lorem");
+var numTaps = 0;
 
 document.write("Hello world!");
 document.addEventListener('keydown', handleKey, false);
-body.addEventListener("touchstart", handleStart, false);
+body.addEventListener("touchstart", handleTouch, false);
 
 function handleKey() {
     document.write("Key pressed. ");
 }
 
-function handleStart() {
-    document.write("Touched. ");
+function handleTouch() {
+    if (numTaps > 1) { 
+        document.write("Touched. ");
+    }
 }
