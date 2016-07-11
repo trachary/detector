@@ -3,7 +3,7 @@
  * Author: Zachary Liou
  * Date Created: 2016 July 11
  * Purpose: Determine whether taps and keys are registered differently.
- * Conclusion: TBD
+ * Conclusion: Tapping keys on phone keyboard registers as keypresses.
  */
 
 
