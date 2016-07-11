@@ -1,7 +1,9 @@
 
 
-console.time("full");
+//console.time("full");
 console.log("Hello world!");
+
+console.time("timer");          // START TIMER /////////////////////////////
 
 // Init vars for document
 var ua = document.querySelector('.ua');
@@ -37,6 +39,7 @@ window.addEventListener("deviceorientation", handleOrientation, true);
 document.addEventListener("click", handleClick, false);
 document.addEventListener("wheel", handleWheel);
 
+console.timeEnd("timer");       // STOP TIMER //////////////////////////////
 
 //////////
 
@@ -196,4 +199,4 @@ navigator.getBattery().then(function(battery) {
 });
 
 
-console.timeEnd("full");
+//console.timeEnd("full");
