@@ -8,9 +8,8 @@
 (function() {
 
     /*
-     * Init constants, flags, and vars
+     * Init constants
      */
-
     // Detection vars
     var IS_MOBILE   = false;
     var CONFIDENCE  = 0;
@@ -23,6 +22,17 @@
     BATTERY_CONF    = 20;
     CHARGIN_CONF    = -25;
                         
+    // UA string keywords
+    var KEYWORDS = [
+        "Macintosh",
+        "Ubuntu"
+    ];
+
+
+    
+    /*
+     * Init vars, flags, and listeners
+     */
     // Detection flags
     var hasKeyword = false;
     var hasGyro = false;
@@ -31,12 +41,6 @@
     var clicked = false;
     var scrolled = false;
     var rotated = false;
-
-    // UA string keywords
-    var KEYWORDS = [
-        "Macintosh",
-        "Ubuntu"
-    ];
 
     // Other gyro vars
     var initAlpha = null;
@@ -56,7 +60,6 @@
     /*
      * Start detection procedure
      */
-
     checkUserAgent();
     navigator.getBattery().then(checkBattery);
 
@@ -69,7 +72,6 @@
     /*
      * Functions
      */
-
     function detectDevice() {
         checkFlags();
         decide();
@@ -144,7 +146,6 @@
     /*
      * Event handlers
      */
-
     function handleOrientation(event) {
         var alpha    = event.alpha;
         var beta     = event.beta;
