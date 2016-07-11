@@ -20,7 +20,7 @@ function handleKey() {
 }
 
 function handleTouch() {
-    if (numTaps > 0) { 
+    if (numTaps > 1) { 
         document.write("<div style='height:900px;width:900px;background:blue'/>");
     }
     ++numTaps;
