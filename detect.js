@@ -121,15 +121,12 @@
 
     function checkUserAgent() {
         var uaString = navigator.userAgent;
-        ua.innerHTML = "OS (UA): " + navigator.userAgent;
 
         for (i = 0; i < KEYWORDS.length; ++i) {
             if (~uaString.indexOf(KEYWORDS[i])) {
-                ua.innerHTML += "<br/>Keyword \"" + KEYWORDS[i] + "\" detected!";
                 hasKeyword = true;
-            } else {
-                ua.innerHTML += "<br/>Keyword \"" + KEYWORDS[i] + "\" not detected.";
-            }
+                return;
+            } 
         }   
     }
 
