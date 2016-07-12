@@ -18,8 +18,9 @@
     var CHECKED     = false;
                         
     // Confidence vars
-    GYRO_CONF       = 50;
-    ROTATE_CONF     = 50;
+    GYRO_CONF       = 70;
+    ROTATE_CONF     = 70;
+    TOUCH_CONF      = 70;
     BATTERY_CONF    = 20;
     CHARGIN_CONF    = -25;
                         
@@ -90,6 +91,7 @@
 
         if (hasGyro) CONFIDENCE += GYRO_CONF;
         if (rotated) CONFIDENCE += ROTATE_CONF;
+        if (touched) CONFIDENCE += TOUCH_CONF;
         if (hasBattery) CONFIDENCE += BATTERY_CONF;
         if (isCharging) CONFIDENCE -= CHARGING_CONF;
 
