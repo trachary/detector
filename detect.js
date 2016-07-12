@@ -44,6 +44,7 @@
     var scrolled = false;
     var rotated = false;
     var touched = false;
+    var mouseover = false;
 
     // Other gyro vars
     var initAlpha = null;
@@ -78,13 +79,17 @@
      * Functions
      */
     function detectDevice() {
-        checkFlags();
-        decide();
+        console.log("detect");
+        if (!CHECKED) {
+            CHECKED = true;
+            checkFlags();
+            decide();
+        }
     }
 
 
     function checkFlags() {
-        if (hasKeyword || clicked || scrolled) {
+        if (hasKeyword || clicked || scrolled || mouseover) {
             CONFIDENCE = -1;
             return;
         }
@@ -100,7 +105,6 @@
 
 
     function decide() {
-        CHECKED = true;
         IS_MOBILE = CONFIDENCE > CONFIDENCE_THRESHOLD;
         if (IS_MOBILE) {
             console.log("This is a clean mobile device!");
@@ -151,6 +155,7 @@
      * Event handlers
      */
     function handleOrientation(event) {
+        console.log("orientation!");
         var alpha    = event.alpha;
         var beta     = event.beta;
         var gamma    = event.gamma;
@@ -202,8 +207,13 @@
 
 
     function handleMouseover(event) {
-        if (touched) return;
-        else detectDevice();
+        if (touched) { 
+            return;
+        } else {
+            mouseover = true;
+            console.log("moused");
+            detectDevice();
+        }
     }
 
 
