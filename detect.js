@@ -47,6 +47,7 @@
     var mouseover = false;
 
     // Other gyro vars
+    var gyro = document.querySelector('.gyro');
     var initAlpha = null;
     var initBeta = null;
     var initGamma = null;
