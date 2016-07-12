@@ -98,15 +98,12 @@
         if (IS_MOBILE) {
             console.log("This is a clean mobile device!");
             // Do stuff
-            document.write(
-                "<div style='width:100vw;height:100vh;background:green;position:absolute;'/>"
-            );
+            document.getElementById("one").style.display = "block";
+            document.getElementById("two").style.display = "none";
         } else {
             console.log("This is NOT a clean mobile device.");
             // Do other stuff
-            document.write(
-                "<div style='width:100vw;height:100vh;background:red;position:absolute;'/>"
-            );
+            document.getElementById("two").style.background = "#b30000";
         }
     }
 

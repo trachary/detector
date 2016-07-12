@@ -6,3 +6,29 @@
 body {
 	height: 100.1vh;
 }
+
+h3 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 7em;
+	color: white;
+	padding-top: 40vh;
+	text-align: center;
+}
+
+#one, #two { 
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	display: none;">
+}
+
+#one {
+	background: #009933; /* green */
+	display: none;
+}
+
+#two {
+	/*background: #b30000;*/ /* red */
+	background: black;
+	display: block;
+}
