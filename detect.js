@@ -155,13 +155,17 @@
      * Event handlers
      */
     function handleOrientation(event) {
-        console.log("orientation!");
+        var absolute = event.absolute;
         var alpha    = event.alpha;
         var beta     = event.beta;
         var gamma    = event.gamma;
 
+        gyro.innerHTML = "alpha: " + alpha
+            + "\nbeta: " + beta
+            + "\ngamma: " + gamma;
+
         // Check that gyro returns values
-        if ((!rotated || !hasGyro) && alpha != null && beta != null && gamma != null) {
+        if (alpha != null && beta != null && gamma != null) {
             hasGyro = true;
 
             // Set init gyro params if not already set
