@@ -52,7 +52,7 @@
     var initGamma = null;
 
     // Add event listeners
-    document.addEventListener("deviceorientation", handleOrientation, true);
+    window.addEventListener("deviceorientation", handleOrientation, true);
     document.addEventListener("click", handleClick, false);
     document.addEventListener("wheel", handleWheel);
     document.addEventListener("mouseover", handleMouseover);
@@ -164,6 +164,7 @@
             + "\nbeta: " + beta
             + "\ngamma: " + gamma;
 
+        alert("orientation");
         // Check that gyro returns values
         if (alpha != null && beta != null && gamma != null) {
             hasGyro = true;
