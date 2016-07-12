@@ -14,7 +14,7 @@
     var IS_MOBILE   = false;
     var CONFIDENCE  = 0;
     var CONFIDENCE_THRESHOLD = 60;
-    var TIME_LIMIT  = 20000;
+    var TIME_LIMIT  = 200;
     var CHECKED     = false;
                         
     // Confidence vars
@@ -202,8 +202,8 @@
 
 
     function handleMouseover(event) {
-        if (touched) alert("touch");
-        else alert("mouseover!");
+        if (touched) return;
+        else detectDevice();
     }
 
 
