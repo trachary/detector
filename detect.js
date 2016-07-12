@@ -165,7 +165,6 @@
             + "\nbeta: " + beta
             + "\ngamma: " + gamma;
 
-        alert("orientation");
         // Check that gyro returns values
         if (alpha != null && beta != null && gamma != null) {
             hasGyro = true;
