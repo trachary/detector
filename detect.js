@@ -42,6 +42,7 @@
     var clicked = false;
     var scrolled = false;
     var rotated = false;
+    var touched = false;
 
     // Other gyro vars
     var initAlpha = null;
@@ -49,10 +50,11 @@
     var initGamma = null;
 
     // Add event listeners
-    window.addEventListener("deviceorientation", handleOrientation, true);
+    document.addEventListener("deviceorientation", handleOrientation, true);
     document.addEventListener("click", handleClick, false);
     document.addEventListener("wheel", handleWheel);
     document.addEventListener("mouseover", handleMouseover);
+    document.addEventListener("touchstart", handleStart, false);
 
     // Timeout
     var timeoutID = window.setTimeout(detectDevice, TIME_LIMIT);
@@ -190,8 +192,16 @@
         detectDevice();
     }
 
+
+    function handleStart(event) {
+        touched = true;
+        detectDevice();
+    }
+
+
     function handleMouseover(event) {
-        alert("mouseover!");
+        if (touched) alert("touch");
+        else alert("mouseover!");
     }
 
 
