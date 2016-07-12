@@ -147,7 +147,7 @@
             + "\nscreen height: " + screen.height
             + "\nwindow width: " + window.innerWidth
             + "\nwindow height: " + window.innerHeight
-        );;
+        );
     }
 
 
@@ -160,10 +160,6 @@
         var alpha    = event.alpha;
         var beta     = event.beta;
         var gamma    = event.gamma;
-
-        gyro.innerHTML = "alpha: " + alpha
-            + "\nbeta: " + beta
-            + "\ngamma: " + gamma;
 
         // Check that gyro returns values
         if (alpha != null && beta != null && gamma != null) {
