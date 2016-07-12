@@ -14,7 +14,8 @@
     var IS_MOBILE   = false;
     var CONFIDENCE  = 0;
     var CONFIDENCE_THRESHOLD = 60;
-    var TIME_LIMIT  = 200;
+    var TIME_LIMIT  = 20000;
+    var CHECKED     = false;
                         
     // Confidence vars
     GYRO_CONF       = 50;
@@ -51,6 +52,7 @@
     window.addEventListener("deviceorientation", handleOrientation, true);
     document.addEventListener("click", handleClick, false);
     document.addEventListener("wheel", handleWheel);
+    document.addEventListener("mouseover", handleMouseover);
 
     // Timeout
     var timeoutID = window.setTimeout(detectDevice, TIME_LIMIT);
@@ -94,6 +96,7 @@
 
 
     function decide() {
+        CHECKED = true;
         IS_MOBILE = CONFIDENCE > CONFIDENCE_THRESHOLD;
         if (IS_MOBILE) {
             console.log("This is a clean mobile device!");
@@ -178,11 +181,17 @@
         if (event.which == 2) {
             handleWheel();
         }
+        detectDevice();
     }
 
 
     function handleWheel(event) {
         scrolled = true;
+        detectDevice();
+    }
+
+    function handleMouseover(event) {
+        alert("mouseover!");
     }
 
 
