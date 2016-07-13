@@ -22,7 +22,7 @@
     ROTATE_CONF     = 70;
     TOUCH_CONF      = 70;
     BATTERY_CONF    = 20;
-    CHARGIN_CONF    = -25;
+    CHARGING_CONF    = -25;
     SCREEN_CONF     = -20;
     PORTRAIT_CONF   = 25;
                         
@@ -70,7 +70,8 @@
     // Timeout
     var timeoutID = window.setTimeout(detectDevice, TIME_LIMIT);
 
-
+    // DEBUG
+    var score = document.querySelector('.long-guess');
 
     /*
      * Start detection procedure
@@ -89,7 +90,6 @@
      * Functions
      */
     function detectDevice() {
-        console.log("detect");
         if (!CHECKED) {
             CHECKED = true;
             checkFlags();
@@ -99,10 +99,10 @@
 
 
     function checkFlags() {
-        if (hasKeyword || clicked || scrolled || mouseover) {
+        /*if (hasKeyword || clicked || scrolled || mouseover) {
             CONFIDENCE = -1;
             return;
-        }
+        }*/
 
         if (hasGyro) CONFIDENCE += GYRO_CONF;
         if (rotated) CONFIDENCE += ROTATE_CONF;
@@ -111,6 +111,21 @@
         if (isCharging) CONFIDENCE += CHARGING_CONF;
         if (!hasCommonScreenSize) CONFIDENCE += SCREEN_CONF;
         if (portrait) CONFIDENCE += PORTRAIT_CONF;
+
+        if (hasGyro) score.innerHTML += "GYRO_CONF ";
+        else score.innerHTML += "no gyro ";
+        if (rotated) score.innerHTML+= "ROTATE_CONF ";
+        else score.innerHTML += "no rotation ";
+        if (touched) score.innerHTML += "TOUCH_CONF ";
+        else score.innerHTML += "no touch ";
+        if (hasBattery) score.innerHTML += "BATTERY_CONF ";
+        else score.innerHTML += "no battery ";
+        if (isCharging) score.innerHTML += "CHARGING_CONF ";
+        else score.innerHTML += "no charge state ";
+        if (!hasCommonScreenSize) score.innerHTML += "SCREEN_CONF ";
+        else score.innerHTML += "no common screen size ";
+        if (portrait) score.innerHTML += "PORTRAIT_CONF ";
+        else score.innerHTML += "no portrait orientation ";
 
         return;
     }
@@ -230,7 +245,6 @@
             return;
         } else {
             mouseover = true;
-            console.log("moused");
             detectDevice();
         }
     }
