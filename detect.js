@@ -23,9 +23,9 @@
     // Confidence vars
     GYRO_CONF       = 70;
     ROTATE_CONF     = 70;
-    TOUCH_CONF      = 70;
+    TOUCH_CONF      = 10;
     BATTERY_CONF    = 20;
-    CHARGING_CONF    = -25;
+    CHARGING_CONF   = -25;
     SCREEN_CONF     = -20;
     PORTRAIT_CONF   = 25;
                         
@@ -71,7 +71,7 @@
     document.addEventListener("touchstart", handleStart, false);
 
     // Timeout
-    var timeout = uaContainsIOS ? TIME_LIMIT_IOS : TIME_LIMIT;
+    var timeout = uaContainsIOS() ? TIME_LIMIT_IOS : TIME_LIMIT;
     var timeoutID = window.setTimeout(detectDevice, timeout);
 
     // DEBUG
