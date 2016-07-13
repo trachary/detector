@@ -11,11 +11,11 @@
      * Init constants
      */
     // Detection vars
-    var IS_MOBILE   = false;
     var CONFIDENCE  = 0;
     var CONFIDENCE_THRESHOLD = 60;
     var TIME_LIMIT  = 200;
     var CHECKED     = false;
+    var IS_MOBILE   = false;
                         
     // Confidence vars
     GYRO_CONF       = 70;
@@ -23,7 +23,13 @@
     TOUCH_CONF      = 70;
     BATTERY_CONF    = 20;
     CHARGIN_CONF    = -25;
+    SCREEN_CONF     = -20;
+    PORTRAIT_CONF   = 25;
                         
+    // Screen constants
+    var RATIO_16_BY_9 = (16.0 / 9.0);
+    var RATIO_3_BY_2 = (3.0 / 2.0);
+
     // UA string keywords
     var KEYWORDS = [
         "Macintosh",
@@ -39,6 +45,8 @@
     var hasKeyword = false;
     var hasGyro = false;
     var hasBattery = false;
+    var hasCommonScreenSize = false;
+    var portrait = false;
     var isCharging = false;
     var clicked = false;
     var scrolled = false;
@@ -67,8 +75,9 @@
     /*
      * Start detection procedure
      */
-    checkUserAgent();
     navigator.getBattery().then(checkBattery);
+    checkUserAgent();
+    checkScreenData();
 
     // detectDevice will then execute after the time limit
 
@@ -99,7 +108,9 @@
         if (rotated) CONFIDENCE += ROTATE_CONF;
         if (touched) CONFIDENCE += TOUCH_CONF;
         if (hasBattery) CONFIDENCE += BATTERY_CONF;
-        if (isCharging) CONFIDENCE -= CHARGING_CONF;
+        if (isCharging) CONFIDENCE += CHARGING_CONF;
+        if (!hasCommonScreenSize) CONFIDENCE += SCREEN_CONF;
+        if (portrait) CONFIDENCE += PORTRAIT_CONF;
 
         return;
     }
@@ -143,11 +154,18 @@
 
 
     function checkScreenData() {
-        console.log("screen width: " + screen.width
-            + "\nscreen height: " + screen.height
-            + "\nwindow width: " + window.innerWidth
-            + "\nwindow height: " + window.innerHeight
-        );
+
+        // Calculate screen ratio
+        var ratio = screen.width / screen.height;
+
+        // Set flags
+        hasCommonScreenSize = (
+            ratio == RATIO_16_BY_9
+            || ratio == (1 / RATIO_16_BY_9)
+            || ratio == RATIO_3_BY_2
+            || ratio == (1 / RATIO_3_BY_2)
+        ); 
+        portrait = ratio > 1;
     }
 
 

@@ -34,7 +34,7 @@
 
     function getRatio() {
         sizes.innerHTML += "\n\n"
-            + "ratio: " + ratio;
+            + "ratio: " + ratio.toFixed(5);
 
         if (ratio == RATIO_16_BY_9 || (1 / RATIO_16_BY_9)) {
             sizes.innerHTML += " (16:9)";
