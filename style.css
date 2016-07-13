@@ -15,6 +15,11 @@ h3 {
 	text-align: center;
 }
 
+span {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.8em;
+}
+
 #one, #two { 
 	width: 100vw;
 	height: 100vh;
