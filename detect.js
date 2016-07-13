@@ -99,10 +99,16 @@
 
 
     function checkFlags() {
-        /*if (hasKeyword || clicked || scrolled || mouseover) {
+        if (hasKeyword || clicked || scrolled || mouseover) {
             CONFIDENCE = -1;
+            
+            if (hasKeyword) score.innerHTML += "KEYWORD ";
+            if (clicked) score.innerHTML += "CLICK ";
+            if (scrolled) score.innerHTML += "SCROLL ";
+            if (mouseover) score.innerHTML += "MOUSE_MOVE ";
+
             return;
-        }*/
+        }
 
         if (hasGyro) CONFIDENCE += GYRO_CONF;
         if (rotated) CONFIDENCE += ROTATE_CONF;
