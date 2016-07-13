@@ -96,111 +96,111 @@
             CHECKED = true;
             checkFlags();
             decide();
+            }
         }
-    }
 
 
-    function checkFlags() {
-        if (hasKeyword || clicked || scrolled || mouseover) {
-            CONFIDENCE = -1;
-            
-            if (hasKeyword) score.innerHTML += "KEYWORD ";
-            if (clicked) score.innerHTML += "CLICK ";
-            if (scrolled) score.innerHTML += "SCROLL ";
-            if (mouseover) score.innerHTML += "MOUSE_MOVE ";
+        function checkFlags() {
+            if (hasKeyword || clicked || scrolled || mouseover) {
+                CONFIDENCE = -1;
+                
+                if (hasKeyword) score.innerHTML += "KEYWORD ";
+                if (clicked) score.innerHTML += "CLICK ";
+                if (scrolled) score.innerHTML += "SCROLL ";
+                if (mouseover) score.innerHTML += "MOUSE_MOVE ";
+
+                return;
+            }
+
+            if (hasGyro) CONFIDENCE += GYRO_CONF;
+            if (rotated) CONFIDENCE += ROTATE_CONF;
+            if (touched) CONFIDENCE += TOUCH_CONF;
+            if (hasBattery) CONFIDENCE += BATTERY_CONF;
+            if (isCharging) CONFIDENCE += CHARGING_CONF;
+            if (!hasCommonScreenSize) CONFIDENCE += SCREEN_CONF;
+            if (portrait) CONFIDENCE += PORTRAIT_CONF;
+
+            if (hasGyro) score.innerHTML += "GYRO_CONF ";
+            else score.innerHTML += "no gyro ";
+            if (rotated) score.innerHTML+= "ROTATE_CONF ";
+            else score.innerHTML += "no rotation ";
+            if (touched) score.innerHTML += "TOUCH_CONF ";
+            else score.innerHTML += "no touch ";
+            if (hasBattery) score.innerHTML += "BATTERY_CONF ";
+            else score.innerHTML += "no battery ";
+            if (isCharging) score.innerHTML += "CHARGING_CONF ";
+            else score.innerHTML += "no charge state ";
+            if (!hasCommonScreenSize) score.innerHTML += "SCREEN_CONF ";
+            else score.innerHTML += "no common screen size ";
+            if (portrait) score.innerHTML += "PORTRAIT_CONF ";
+            else score.innerHTML += "no portrait orientation ";
 
             return;
         }
 
-        if (hasGyro) CONFIDENCE += GYRO_CONF;
-        if (rotated) CONFIDENCE += ROTATE_CONF;
-        if (touched) CONFIDENCE += TOUCH_CONF;
-        if (hasBattery) CONFIDENCE += BATTERY_CONF;
-        if (isCharging) CONFIDENCE += CHARGING_CONF;
-        if (!hasCommonScreenSize) CONFIDENCE += SCREEN_CONF;
-        if (portrait) CONFIDENCE += PORTRAIT_CONF;
 
-        if (hasGyro) score.innerHTML += "GYRO_CONF ";
-        else score.innerHTML += "no gyro ";
-        if (rotated) score.innerHTML+= "ROTATE_CONF ";
-        else score.innerHTML += "no rotation ";
-        if (touched) score.innerHTML += "TOUCH_CONF ";
-        else score.innerHTML += "no touch ";
-        if (hasBattery) score.innerHTML += "BATTERY_CONF ";
-        else score.innerHTML += "no battery ";
-        if (isCharging) score.innerHTML += "CHARGING_CONF ";
-        else score.innerHTML += "no charge state ";
-        if (!hasCommonScreenSize) score.innerHTML += "SCREEN_CONF ";
-        else score.innerHTML += "no common screen size ";
-        if (portrait) score.innerHTML += "PORTRAIT_CONF ";
-        else score.innerHTML += "no portrait orientation ";
-
-        return;
-    }
-
-
-    function decide() {
-        IS_MOBILE = CONFIDENCE > CONFIDENCE_THRESHOLD;
-        if (IS_MOBILE) {
-            console.log("This is a clean mobile device!");
-            // Do stuff
-            document.getElementById("one").style.display = "block";
-            document.getElementById("two").style.display = "none";
-        } else {
-            console.log("This is NOT a clean mobile device.");
-            // Do other stuff
-            document.getElementById("two").style.background = "#b30000";
+        function decide() {
+            IS_MOBILE = CONFIDENCE > CONFIDENCE_THRESHOLD;
+            if (IS_MOBILE) {
+                console.log("This is a clean mobile device!");
+                // Do stuff
+                document.getElementById("one").style.display = "block";
+                document.getElementById("two").style.display = "none";
+            } else {
+                console.log("This is NOT a clean mobile device.");
+                // Do other stuff
+                document.getElementById("two").style.background = "#b30000";
+            }
         }
-    }
 
 
-    function checkBattery(battery) {
-        hasBattery = true;
+        function checkBattery(battery) {
+            hasBattery = true;
 
-        // Detect if initially charging
-        if (battery.charging) {
-            isCharging = true;
+            // Detect if initially charging
+            if (battery.charging) {
+                isCharging = true;
+            }
         }
-    }
 
 
-    function checkUserAgent() {
-        var uaString = navigator.userAgent;
+        function checkUserAgent() {
+            var uaString = navigator.userAgent;
 
-        for (i = 0; i < KEYWORDS.length; ++i) {
-            if (~uaString.indexOf(KEYWORDS[i])) {
-                hasKeyword = true;
-                return;
-            } 
-        }   
-    }
+            for (i = 0; i < KEYWORDS.length; ++i) {
+                if (~uaString.indexOf(KEYWORDS[i])) {
+                    hasKeyword = true;
+                    return;
+                } 
+            }   
+        }
 
-    function uaContainsIOS() {
-        return ~navigator.userAgent.indexOf("iPhone");
-    }
-
-
-    function checkScreenData() {
-
-        // Calculate screen ratio
-        var ratio = screen.width / screen.height;
-
-        // Set flags
-        hasCommonScreenSize = (
-            ratio == RATIO_16_BY_9
-            || ratio == (1 / RATIO_16_BY_9)
-            || ratio == RATIO_3_BY_2
-            || ratio == (1 / RATIO_3_BY_2)
-        ); 
-        portrait = ratio > 1;
-    }
+        function uaContainsIOS() {
+            return ~navigator.userAgent.indexOf("iPhone");
+        }
 
 
+        function checkScreenData() {
 
-    /*
-     * Event handlers
-     */
-    function handleOrientation(event) {
+            // Calculate screen ratio
+            var ratio = screen.width / screen.height;
+
+            // Set flags
+            hasCommonScreenSize = (
+                ratio == RATIO_16_BY_9
+                || ratio == (1 / RATIO_16_BY_9)
+                || ratio == RATIO_3_BY_2
+                || ratio == (1 / RATIO_3_BY_2)
+            ); 
+            portrait = ratio < 1;
+        }
+
+
+
+        /*
+         * Event handlers
+         */
+        function handleOrientation(event) {
         
         var absolute = event.absolute;
         var alpha    = event.alpha;
