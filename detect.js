@@ -16,6 +16,7 @@
     var CONFIDENCE  = 0;
     var CONFIDENCE_THRESHOLD = 60;
     var TIME_LIMIT  = 200;
+    var TIME_LIMIT_IOS = 950;
     var CHECKED     = false;
     var IS_MOBILE   = false;
                         
@@ -70,7 +71,8 @@
     document.addEventListener("touchstart", handleStart, false);
 
     // Timeout
-    var timeoutID = window.setTimeout(detectDevice, TIME_LIMIT);
+    var timeout = uaContainsIOS ? TIME_LIMIT_IOS : TIME_LIMIT;
+    var timeoutID = window.setTimeout(detectDevice, timeout);
 
     // DEBUG
     var score = document.querySelector('.long-guess');
@@ -173,6 +175,10 @@
                 return;
             } 
         }   
+    }
+
+    function uaContainsIOS() {
+        return ~navigator.userAgent.indexOf("iPhone");
     }
 
 
