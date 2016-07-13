@@ -7,8 +7,6 @@
 
 (function() {
 
-    var startTime = Date.now();
-
     /*
      * Init constants
      */
@@ -204,9 +202,6 @@
      */
     function handleOrientation(event) {
         
-        var endTime = Date.now();
-        score.innerHTML += "<br/>Time: " + (endTime - startTime) + "<br/>";
-
         var absolute = event.absolute;
         var alpha    = event.alpha;
         var beta     = event.beta;
