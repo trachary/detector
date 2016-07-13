@@ -17,6 +17,7 @@
      */
     getScreenData();
     getRatio();
+    getOrientation();
 
 
     /*
@@ -35,10 +36,21 @@
         sizes.innerHTML += "\n\n"
             + "ratio: " + ratio;
 
-        if (ratio == RATIO_16_BY_9) {
+        if (ratio == RATIO_16_BY_9 || (1 / RATIO_16_BY_9)) {
             sizes.innerHTML += " (16:9)";
-        } else if (ratio == RATIO_3_BY_2) {
+        } else if (ratio == RATIO_3_BY_2 || (1 / RATIO_3_BY_2)) {
             size.innerHTML += " (3:2)";
+        }
+    }
+
+    function getOrientation() {
+        sizes.innerHTML += "\norientation: ";
+        if (screen.height > screen.width) {
+            sizes.innerHTML += "portrait";
+        } else if (screen.height < screen.width) {
+            sizes.innerHTML += "landscape";
+        } else {
+            sizes.innerHTML += "square";
         }
     }
 
