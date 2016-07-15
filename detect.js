@@ -77,6 +77,7 @@
     var timeoutID = window.setTimeout(detectDevice, timeLimit);
 
     // DEBUG
+    var sizes = document.querySelector('.sizes');
     var score = document.querySelector('.long-guess');
 
 
