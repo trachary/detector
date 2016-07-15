@@ -22,13 +22,13 @@
     var IS_MOBILE   = false;
                         
     // Confidence vars
-    GYRO_CONF       = 70;
-    ROTATE_CONF     = 70;
-    TOUCH_CONF      = 10;
-    BATTERY_CONF    = 20;
-    CHARGING_CONF   = -140;
-    SCREEN_CONF     = -20;
-    PORTRAIT_CONF   = 25;
+    GYRO_CONF       = 70;   // Does the device have a gyro?
+    ROTATE_CONF     = 70;   // Did the gyro xyz values change?
+    TOUCH_CONF      = 10;   // Was there a touch event?
+    BATTERY_CONF    = 20;   // Does the device have a battery?
+    CHARGING_CONF   = -140; // Is the device plugged in?
+    SCREEN_CONF     = -20;  // Is the screen's aspect ratio NOT (16:9 or 3:2)?
+    PORTRAIT_CONF   = 25;   // Is the screen longer than it is wide?
                         
     // Screen constants
     var RATIO_16_BY_9 = (16.0 / 9.0);
@@ -199,7 +199,9 @@
 
 
     function checkScreenData() {
-
+        if (!screen.width || !screen.height) {
+            sizes.innerHTML = "no screen data available.";
+        }
         // DEBUG - display screen data
         sizes.innerHTML = "screen width: " + screen.width
             + "\nscreen height: " + screen.height
