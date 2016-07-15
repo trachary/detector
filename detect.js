@@ -8,27 +8,30 @@
 
 (function() {
 
+    "use strict";
+
     console.time("to-timer-start"); // TEST
 
     /*
      * Init constants
      */
     // Detection vars
-    var CONFIDENCE  = 0;
-    var CONFIDENCE_THRESHOLD = 60;
     var TIME_LIMIT  = 200;
     var TIME_LIMIT_IOS = 950;
     var CHECKED     = false;
     var IS_MOBILE   = false;
                         
-    // Confidence vars
-    GYRO_CONF       = 70;   // Does the device have a gyro?
-    ROTATE_CONF     = 70;   // Did the gyro xyz values change?
-    TOUCH_CONF      = 10;   // Was there a touch event?
-    BATTERY_CONF    = 20;   // Does the device have a battery?
-    CHARGING_CONF   = -140; // Is the device plugged in?
-    SCREEN_CONF     = -20;  // Is the screen's aspect ratio NOT (16:9 or 3:2)?
-    PORTRAIT_CONF   = 25;   // Is the screen longer than it is wide?
+    // Confidence vars and constants
+    var CONFIDENCE  = 0;
+    var CONFIDENCE_THRESHOLD = 60;
+
+    var GYRO_CONF       = 70;   // Does the device have a gyro?
+    var ROTATE_CONF     = 70;   // Did the gyro's xyz values change?
+    var TOUCH_CONF      = 10;   // Was there a touch event?
+    var BATTERY_CONF    = 20;   // Does the device have a battery?
+    var CHARGING_CONF   = -140; // Is the device plugged in?
+    var SCREEN_CONF     = -20;  // Is the screen's aspect ratio NOT (16:9 or 3:2)?
+    var PORTRAIT_CONF   = 25;   // Is the screen longer than it is wide?
                         
     // Screen constants
     var RATIO_16_BY_9 = (16.0 / 9.0);
@@ -129,7 +132,7 @@
         if (touched) CONFIDENCE += TOUCH_CONF;
         if (hasBattery) CONFIDENCE += BATTERY_CONF;
         if (isCharging) CONFIDENCE += CHARGING_CONF;
-        if (!hasCommonScreenSize) CONFIDENCE += SCREEN_CONF;
+        if (!hasCommonScreenSize) CONFIDENCE += SCREEN_CONF; // note the !
         if (portrait) CONFIDENCE += PORTRAIT_CONF;
         
         // Print flag info (for testing)
@@ -144,7 +147,7 @@
         if (isCharging) score.innerHTML             += "<br/>CHARGING_CONF " + CHARGING_CONF;
         else score.innerHTML += "<br/>no charge state ";
         if (!hasCommonScreenSize) score.innerHTML   += "<br/>SCREEN_CONF   " + SCREEN_CONF;
-        else score.innerHTML += "<br/>no common screen size ";
+        else score.innerHTML += "<br/>no uncommon screen size ";
         if (portrait) score.innerHTML               += "<br/>PORTRAIT_CONF " + PORTRAIT_CONF;
         else score.innerHTML += "<br/>no portrait orientation ";
 
@@ -185,7 +188,7 @@
     function checkUserAgent() {
         var uaString = navigator.userAgent;
 
-        for (i = 0; i < KEYWORDS.length; ++i) {
+        for (var i = 0; i < KEYWORDS.length; ++i) {
             if (~uaString.indexOf(KEYWORDS[i])) {
                 hasKeyword = true;
                 return;
