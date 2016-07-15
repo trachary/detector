@@ -11,7 +11,7 @@ body {
 h3 {
 	font-size: 7em;
 	color: white;
-	padding-top: 40vh;
+	padding-top: 17vh;
 	text-align: center;
 }
 
@@ -21,7 +21,7 @@ span {
 
 #one, #two { 
 	width: 100vw;
-	height: 100vh;
+	height: 50vh;
 /*	position: absolute;*/
 	display: none;">
 }

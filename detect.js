@@ -30,7 +30,7 @@
     var TOUCH_CONF      = 10;   // Was there a touch event?
     var BATTERY_CONF    = 20;   // Does the device have a battery?
     var CHARGING_CONF   = -140; // Is the device plugged in?
-    var SCREEN_CONF     = -20;  // Is the screen's aspect ratio NOT (16:9 or 3:2)?
+    var SCREEN_CONF     = -10;  // Is the screen's aspect ratio NOT (16:9 or 3:2)?
     var PORTRAIT_CONF   = 25;   // Is the screen longer than it is wide?
                         
     // Screen constants
@@ -242,11 +242,11 @@
             hasGyro = true;
 
             // Set init gyro params if not already set
-            if (!initAlpha && !initBeta && !initGamma) {
+            if (!initAlpha || !initBeta || !initGamma) {
                 initAlpha = alpha;
                 initBeta = beta;
                 initGamma = gamma;
-            } else if (alpha != initAlpha && beta != initBeta && gamma != initGamma) {
+            } else if (alpha != initAlpha || beta != initBeta || gamma != initGamma) {
                 rotated = true;
             } // end else if 
 
