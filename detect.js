@@ -204,6 +204,9 @@
     function checkScreenData() {
         if (!screen.width || !screen.height) {
             sizes.innerHTML = "no screen data available.";
+            hasCommonScreenSize = true;
+            portrait = false;
+            return;
         }
         // DEBUG - display screen data
         sizes.innerHTML = "screen width: " + screen.width
