@@ -16,7 +16,7 @@
      * Init constants
      */
     // Detection vars
-    var TIME_LIMIT  = 200;
+    var TIME_LIMIT  = 250;
     var TIME_LIMIT_IOS = 950;
     var CHECKED     = false;
     var IS_MOBILE   = false;
@@ -214,7 +214,7 @@
             + "\nscreen height: " + screen.height
             + "\n"
             + "\nwindow width: " + window.innerWidth
-            + "\nwindow height: " + window.innerHeight;
+            + "\nwindow height: " + window.innerHeight + "\n";
 
         // Calculate screen ratio
         var ratio = screen.width / screen.height;
@@ -236,7 +236,7 @@
     */
     function handleOrientation(event) {
         var gyroEndTime = Date.now();
-        sizes.innerHTML +=  "<br>" + (gyroEndTime - gyroTime);
+        sizes.innerHTML +=  (gyroEndTime - gyroTime);
         
         var absolute = event.absolute;
         var alpha    = event.alpha;
