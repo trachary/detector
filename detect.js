@@ -78,6 +78,7 @@
     var timeLimit = uaContainsIOS() ? TIME_LIMIT_IOS : TIME_LIMIT;
     console.timeEnd("to-timer-start");  // TEST
     var timeoutID = window.setTimeout(detectDevice, timeLimit);
+    var gyroTime = Date.now();
 
     // DEBUG
     var sizes = document.querySelector('.sizes');
@@ -234,6 +235,8 @@
     * Event handlers
     */
     function handleOrientation(event) {
+        var gyroEndTime = Date.now();
+        sizes.innerHTML +=  "<br>" + gyroEndTime - gyroTime;
         
         var absolute = event.absolute;
         var alpha    = event.alpha;
