@@ -236,7 +236,7 @@
     */
     function handleOrientation(event) {
         var gyroEndTime = Date.now();
-        sizes.innerHTML +=  "<br>" + gyroEndTime - gyroTime;
+        sizes.innerHTML +=  "<br>" + (gyroEndTime - gyroTime);
         
         var absolute = event.absolute;
         var alpha    = event.alpha;
