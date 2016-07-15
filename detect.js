@@ -199,6 +199,13 @@
 
     function checkScreenData() {
 
+        // DEBUG - display screen data
+        sizes.innerHTML = "screen width: " + screen.width
+            + "\nscreen height: " + screen.height
+            + "\n"
+            + "\nwindow width: " + window.innerWidth
+            + "\nwindow height: " + window.innerHeight;
+
         // Calculate screen ratio
         var ratio = screen.width / screen.height;
 
