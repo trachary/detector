@@ -161,7 +161,7 @@
 
 
     function decide() {
-        IS_MOBILE = CONFIDENCE > CONFIDENCE_THRESHOLD;
+        IS_MOBILE = CONFIDENCE >= CONFIDENCE_THRESHOLD;
         if (IS_MOBILE) {
             console.log("This is a clean mobile device!");
             // Do stuff
