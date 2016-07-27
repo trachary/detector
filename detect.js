@@ -11,6 +11,7 @@
     "use strict";
 
     console.time("to-timer-start"); // TEST
+    var gyroStart = Date.now();
 
     /*
      * Init constants
@@ -110,7 +111,7 @@
 
 
     function checkFlags() {
-    /*
+    
         if (hasKeyword || clicked || scrolled || mouseover) {
             CONFIDENCE = -1;
             
@@ -123,10 +124,11 @@
             score.innerHTML += "<br/>- - - - - - - -";
             score.innerHTML += "<br/>CONFIDENCE: " + CONFIDENCE;
             score.innerHTML += "<br/>THRESHOLD:  " + CONFIDENCE_THRESHOLD;
+            score.innerHTML += "<br/><br/>";
 
-            return;
+            // return;
         }
-*/
+
         if (hasGyro) CONFIDENCE += GYRO_CONF;
         if (rotated) CONFIDENCE += ROTATE_CONF;
         if (touched) CONFIDENCE += TOUCH_CONF;
@@ -234,6 +236,8 @@
     * Event handlers
     */
     function handleOrientation(event) {
+
+        var gyroEnd = Date.now();
         
         var absolute = event.absolute;
         var alpha    = event.alpha;
@@ -243,6 +247,12 @@
         // Check that gyro returns values
         if (alpha && beta && gamma) {
             hasGyro = true;
+
+            console.log(gyroEnd - gyroStart);
+            gyro.innerHTML = "gyro time: " + (gyroEnd - gyroStart)
+                + "<br/>a: " + alpha
+                + "<br/>b: " + beta
+                + "<br/>g: " + gamma;
 
             // Set init gyro params if not already set
             if (!initAlpha || !initBeta || !initGamma) {
