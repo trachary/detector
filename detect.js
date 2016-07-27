@@ -115,7 +115,7 @@
         if (hasKeyword || clicked || scrolled || mouseover) {
             CONFIDENCE = -1;
             
-            if (hasKeyword) score.innerHTML += "KEYWORD ";
+            if (hasKeyword) score.innerHTML += "<br/><br/>KEYWORD ";
             if (clicked) score.innerHTML += "CLICK ";
             if (scrolled) score.innerHTML += "SCROLL ";
             if (mouseover) score.innerHTML += "MOUSE_MOVE ";
@@ -138,7 +138,7 @@
         if (portrait) CONFIDENCE += PORTRAIT_CONF;
         
         // Print flag info (for testing)
-        if (hasGyro) score.innerHTML                += "<br/>GYRO_CONF:    " + GYRO_CONF;
+        if (hasGyro) score.innerHTML                += "<br/><br/>GYRO_CONF:    " + GYRO_CONF;
         else score.innerHTML += "<br/>no gyro ";
         if (rotated) score.innerHTML                += "<br/>ROTATE_CONF   " + ROTATE_CONF;
         else score.innerHTML += "<br/>no rotation ";
@@ -179,7 +179,7 @@
 
     function checkBattery(battery) {
         hasBattery = true;
-        score.innerHTML += "TIME TO BATTERY: " + (Date.now() - start);
+        score.innerHTML += "<br/>TIME TO BATTERY: " + (Date.now() - start) + "<br/>";
 
         // Detect if initially charging
         if (battery.charging) {
@@ -238,7 +238,7 @@
     */
     function handleOrientation(event) {
 
-        var gyroEnd = Date.now();
+        score.innerHTML += "<br/>TIME TO GYRO: " + (Date.now() - start) + "<br/>";
         
         var absolute = event.absolute;
         var alpha    = event.alpha;
