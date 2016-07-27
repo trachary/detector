@@ -11,7 +11,7 @@
     "use strict";
 
     console.time("to-timer-start"); // TEST
-    var gyroStart = Date.now();
+    var start = Date.now();
 
     /*
      * Init constants
@@ -179,6 +179,7 @@
 
     function checkBattery(battery) {
         hasBattery = true;
+        score.innerHTML += "TIME TO BATTERY: " + (Date.now() - start);
 
         // Detect if initially charging
         if (battery.charging) {
@@ -249,7 +250,7 @@
             hasGyro = true;
 
             console.log(gyroEnd - gyroStart);
-            gyro.innerHTML = "gyro time: " + (gyroEnd - gyroStart);
+            gyro.innerHTML = "gyro time: " + (gyroEnd - start);
                 // + "<br/>a: " + alpha
                 // + "<br/>b: " + beta
                 // + "<br/>g: " + gamma;
