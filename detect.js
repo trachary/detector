@@ -249,10 +249,10 @@
             hasGyro = true;
 
             console.log(gyroEnd - gyroStart);
-            gyro.innerHTML = "gyro time: " + (gyroEnd - gyroStart)
-                + "<br/>a: " + alpha
-                + "<br/>b: " + beta
-                + "<br/>g: " + gamma;
+            gyro.innerHTML = "gyro time: " + (gyroEnd - gyroStart);
+                // + "<br/>a: " + alpha
+                // + "<br/>b: " + beta
+                // + "<br/>g: " + gamma;
 
             // Set init gyro params if not already set
             if (!initAlpha || !initBeta || !initGamma) {
