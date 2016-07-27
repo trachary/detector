@@ -17,7 +17,7 @@
      * Init constants
      */
     // Detection vars
-    var TIME_LIMIT  = 300;
+    var TIME_LIMIT  = 500;
     var TIME_LIMIT_IOS = 950;
     var CHECKED     = false;
     var IS_MOBILE   = false;
