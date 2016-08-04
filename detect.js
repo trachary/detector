@@ -12,7 +12,6 @@
 
     console.time("to-timer-start"); // TEST
     console.log(navigator);
-    console.log(navigator.oscpu);
     var start = Date.now();
 
     /*
