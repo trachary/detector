@@ -127,7 +127,7 @@
             score.innerHTML += "<br/>THRESHOLD:  " + CONFIDENCE_THRESHOLD;
             score.innerHTML += "<br/><br/>";
 
-            // return;
+            return;
         }
 
         if (hasGyro) CONFIDENCE += GYRO_CONF;
