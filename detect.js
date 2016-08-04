@@ -11,6 +11,8 @@
     "use strict";
 
     console.time("to-timer-start"); // TEST
+    console.log(navigator);
+    console.log(navigator.oscpu);
     var start = Date.now();
 
     /*
@@ -32,7 +34,7 @@
     var BATTERY_CONF    = 20;   // Does the device have a battery?
     var CHARGING_CONF   = -140; // Is the device plugged in?
     var SCREEN_CONF     = -10;  // Is the screen's aspect ratio NOT (16:9 or 3:2)?
-    var PORTRAIT_CONF   = 25;   // Is the screen longer than it is wide?
+    var PORTRAIT_CONF   = 40;   // Is the screen longer than it is wide?
                         
     // Screen constants
     var RATIO_16_BY_9 = (16.0 / 9.0);
