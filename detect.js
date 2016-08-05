@@ -104,6 +104,7 @@
      * Start detection procedure
      */
     navigator.getBattery().then(checkBattery);
+    checkLanguage();
     checkUserAgent();
     checkScreenData();
 
