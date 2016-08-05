@@ -10,18 +10,16 @@
 
     "use strict";
 
-    console.time("to-timer-start"); // TEST
-    console.log(navigator);
-    var start = Date.now();
 
     /*
      * Init constants
      */
     // Detection vars
-    var TIME_LIMIT  = 500;
-    var TIME_LIMIT_IOS = 950;
-    var CHECKED     = false;
-    var IS_MOBILE   = false;
+    var TIME_LIMIT      = 500;
+    var TIME_LIMIT_IOS  = 950;
+    var CHECKED         = false;
+    var IS_MOBILE       = false;
+    var DEBUG           = true;
                         
     // Confidence vars and constants
     var CONFIDENCE  = 0;
@@ -45,24 +43,42 @@
         "Ubuntu"
     ];
 
+    // Language - detect as clean mobile ONLY for these languages
+    var LANGUAGE = [
+        "en-US",
+        "en",
+    ]
+
+
+    if (DEBUG) {
+        console.time("to-timer-start"); // TEST
+        console.log(navigator);
+        var start = Date.now();
+
+        // DEBUG
+        var sizes = document.querySelector('.sizes');
+        var score = document.querySelector('.long-guess');
+    }
 
     
     /*
      * Init vars, flags, and listeners
      */
     // Detection flags
-    var hasKeyword = false;
-    var hasGyro = false;
+    var clicked = false;
     var hasBattery = false;
     var hasCommonScreenSize = false;
-    var portrait = false;
+    var hasGyro = false;
+    var hasKeyword = false;
+    var hasLanguage = false;
     var isCharging = false;
     var isBatteryFull = false;
-    var clicked = false;
-    var scrolled = false;
-    var rotated = false;
-    var touched = false;
     var mouseover = false;
+    var portrait = false;
+    var rotated = false;
+    var scrolled = false;
+    var touched = false;
+
 
     // Other gyro vars
     var gyro = document.querySelector('.gyro');
@@ -79,12 +95,9 @@
 
     // Timeout
     var timeLimit = uaContainsIOS() ? TIME_LIMIT_IOS : TIME_LIMIT;
-    console.timeEnd("to-timer-start");  // TEST
     var timeoutID = window.setTimeout(detectDevice, timeLimit);
+    if (DEBUG) console.timeEnd("to-timer-start");  // TEST
 
-    // DEBUG
-    var sizes = document.querySelector('.sizes');
-    var score = document.querySelector('.long-guess');
 
 
     /*
@@ -93,6 +106,8 @@
     navigator.getBattery().then(checkBattery);
     checkUserAgent();
     checkScreenData();
+
+    if (DEBUG) debug();
 
     // detectDevice will then execute after the time limit
 
@@ -103,6 +118,54 @@
     /*
      * Functions
      */
+     function debug() {
+
+        console.timeEnd("to-timer-start");
+
+        if (hasKeyword) score.innerHTML += "<br/><br/>KEYWORD ";
+        if (clicked) score.innerHTML += "CLICK ";
+        if (scrolled) score.innerHTML += "SCROLL ";
+        if (mouseover) score.innerHTML += "MOUSE_MOVE ";
+        if (isBatteryFull) score.innerHTML += "BATTERY_FULL";
+        if (!hasLanguage) score.innerHTML += "NO_LANGUAGE";
+
+        // TEST - print confidence levels
+        score.innerHTML += "<br/>- - - - - - - -";
+        score.innerHTML += "<br/>CONFIDENCE: " + CONFIDENCE;
+        score.innerHTML += "<br/>THRESHOLD:  " + CONFIDENCE_THRESHOLD;
+        score.innerHTML += "<br/><br/>";
+
+        // Print flag info (for testing)
+        if (hasGyro)    score.innerHTML += "<br/><br/>GYRO_CONF:    " + GYRO_CONF;
+        else            score.innerHTML += "<br/>no gyro ";
+        if (rotated)    score.innerHTML += "<br/>ROTATE_CONF   " + ROTATE_CONF;
+        else            score.innerHTML += "<br/>no rotation ";
+        if (touched)    score.innerHTML += "<br/>TOUCH_CONF    " + TOUCH_CONF;
+        else            score.innerHTML += "<br/>no touch ";
+        if (hasBattery) score.innerHTML += "<br/>BATTERY_CONF  " + BATTERY_CONF;
+        else            score.innerHTML += "<br/>no battery ";
+        if (isCharging) score.innerHTML += "<br/>CHARGING_CONF " + CHARGING_CONF;
+        else            score.innerHTML += "<br/>no charge state ";
+        if (!hasCommonScreenSize) score.innerHTML   += "<br/>SCREEN_CONF   " + SCREEN_CONF;
+        else            score.innerHTML += "<br/>no uncommon screen size ";
+        if (portrait)   score.innerHTML += "<br/>PORTRAIT_CONF " + PORTRAIT_CONF;
+        else            score.innerHTML += "<br/>no portrait orientation ";
+
+        // TEST - print confidence levels
+        score.innerHTML += "<br/>- - - - - - - -";
+        score.innerHTML += "<br/>CONFIDENCE:   " + CONFIDENCE;
+        score.innerHTML += "<br/>THRESHOLD:    " + CONFIDENCE_THRESHOLD;
+
+        // DEBUG - display screen data
+        sizes.innerHTML = "screen width: " + screen.width
+            + "\nscreen height: " + screen.height
+            + "\n"
+            + "\nwindow width: " + window.innerWidth
+            + "\nwindow height: " + window.innerHeight + "\n";
+     }
+
+
+
     function detectDevice() {
         if (!CHECKED) {
             CHECKED = true;
@@ -114,22 +177,10 @@
 
     function checkFlags() {
     
-        if (hasKeyword || clicked || scrolled || mouseover || isBatteryFull) {
+        if (hasKeyword || clicked || scrolled 
+                || mouseover || isBatteryFull || !hasLanguage) {
             CONFIDENCE = -1;
-            
-            if (hasKeyword) score.innerHTML += "<br/><br/>KEYWORD ";
-            if (clicked) score.innerHTML += "CLICK ";
-            if (scrolled) score.innerHTML += "SCROLL ";
-            if (mouseover) score.innerHTML += "MOUSE_MOVE ";
-            if (isBatteryFull) score.innerHTML += "BATTERY_FULL";
-
-            // TEST - print confidence levels
-            score.innerHTML += "<br/>- - - - - - - -";
-            score.innerHTML += "<br/>CONFIDENCE: " + CONFIDENCE;
-            score.innerHTML += "<br/>THRESHOLD:  " + CONFIDENCE_THRESHOLD;
-            score.innerHTML += "<br/><br/>";
-
-            return;
+            if (!debug) return;
         }
 
         if (hasGyro) CONFIDENCE += GYRO_CONF;
@@ -139,27 +190,6 @@
         if (isCharging) CONFIDENCE += CHARGING_CONF;
         if (!hasCommonScreenSize) CONFIDENCE += SCREEN_CONF; // note the !
         if (portrait) CONFIDENCE += PORTRAIT_CONF;
-        
-        // Print flag info (for testing)
-        if (hasGyro) score.innerHTML                += "<br/><br/>GYRO_CONF:    " + GYRO_CONF;
-        else score.innerHTML += "<br/>no gyro ";
-        if (rotated) score.innerHTML                += "<br/>ROTATE_CONF   " + ROTATE_CONF;
-        else score.innerHTML += "<br/>no rotation ";
-        if (touched) score.innerHTML                += "<br/>TOUCH_CONF    " + TOUCH_CONF;
-        else score.innerHTML += "<br/>no touch ";
-        if (hasBattery) score.innerHTML             += "<br/>BATTERY_CONF  " + BATTERY_CONF;
-        else score.innerHTML += "<br/>no battery ";
-        if (isCharging) score.innerHTML             += "<br/>CHARGING_CONF " + CHARGING_CONF;
-        else score.innerHTML += "<br/>no charge state ";
-        if (!hasCommonScreenSize) score.innerHTML   += "<br/>SCREEN_CONF   " + SCREEN_CONF;
-        else score.innerHTML += "<br/>no uncommon screen size ";
-        if (portrait) score.innerHTML               += "<br/>PORTRAIT_CONF " + PORTRAIT_CONF;
-        else score.innerHTML += "<br/>no portrait orientation ";
-
-        // TEST - print confidence levels
-        score.innerHTML += "<br/>- - - - - - - -";
-        score.innerHTML += "<br/>CONFIDENCE:   " + CONFIDENCE;
-        score.innerHTML += "<br/>THRESHOLD:    " + CONFIDENCE_THRESHOLD;
 
         return;
     }
@@ -167,28 +197,30 @@
 
     function decide() {
         IS_MOBILE = CONFIDENCE >= CONFIDENCE_THRESHOLD;
-        if (IS_MOBILE) {
-            console.log("This is a clean mobile device!");
-            // Do stuff
-            document.getElementById("one").style.display = "block";
-            document.getElementById("two").style.display = "none";
-        } else {
-            console.log("This is NOT a clean mobile device.");
-            // Do other stuff
-            document.getElementById("two").style.background = "#b30000";
+        if (DEBUG) {
+            if (IS_MOBILE) {
+                console.log("This is a clean mobile device!");
+                // Do stuff
+                document.getElementById("one").style.display = "block";
+                document.getElementById("two").style.display = "none";
+            } else {
+                console.log("This is NOT a clean mobile device.");
+                // Do other stuff
+                document.getElementById("two").style.background = "#b30000";
+            }
         }
     }
 
 
     function checkBattery(battery) {
         hasBattery = true;
-        score.innerHTML += "<br/>TIME TO BATTERY: " + (Date.now() - start) + "<br/>";
+        
+        if (DEBUG) score.innerHTML += "<br/>TIME TO BATTERY: " + (Date.now() - start) + "<br/>";
 
         // Detect if initially charging
         if (battery.charging) {
             isCharging = true;
         }
-        console.log(battery.level);
         if (battery.level == 1) {
             isBatteryFull = true;
         } 
@@ -206,6 +238,17 @@
         }   
     }
 
+
+    function checkLanguage() {
+        for (var i = 0; i < LANGUAGE.length; ++i) {
+            if (LANGUAGE[i] == navigator.language) {
+                hasLanguage = true;
+                return;
+            }
+        }
+    }
+
+
     function uaContainsIOS() {
         return ~navigator.userAgent.indexOf("iPhone");
     }
@@ -213,17 +256,11 @@
 
     function checkScreenData() {
         if (!screen.width || !screen.height) {
-            sizes.innerHTML = "no screen data available.";
+            if (DEBUG) sizes.innerHTML = "no screen data available.";
             hasCommonScreenSize = true;
             portrait = false;
             return;
         }
-        // DEBUG - display screen data
-        sizes.innerHTML = "screen width: " + screen.width
-            + "\nscreen height: " + screen.height
-            + "\n"
-            + "\nwindow width: " + window.innerWidth
-            + "\nwindow height: " + window.innerHeight + "\n";
 
         // Calculate screen ratio
         var ratio = screen.width / screen.height;
@@ -245,7 +282,7 @@
     */
     function handleOrientation(event) {
 
-        score.innerHTML += "<br/>TIME TO GYRO: " + (Date.now() - start) + "<br/>";
+        if (DEBUG) score.innerHTML += "<br/>TIME TO GYRO: " + (Date.now() - start) + "<br/>";
         
         var absolute = event.absolute;
         var alpha    = event.alpha;
@@ -277,10 +314,12 @@
 
 
     function handleClick(event) {
-        console.log("click:"
-            + "\nx: " + event.screenX 
-            + "\ny: " + event.screenY
-        );
+        if (DEBUG) {
+            console.log("click:"
+                + "\nx: " + event.screenX 
+                + "\ny: " + event.screenY
+            );
+        }
 
         if (event.altKey || event.ctrlKey || event.metaKey) {
             // extra computer points
