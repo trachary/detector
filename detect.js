@@ -57,6 +57,7 @@
     var hasCommonScreenSize = false;
     var portrait = false;
     var isCharging = false;
+    var isBatteryFull = false;
     var clicked = false;
     var scrolled = false;
     var rotated = false;
@@ -113,13 +114,14 @@
 
     function checkFlags() {
     
-        if (hasKeyword || clicked || scrolled || mouseover) {
+        if (hasKeyword || clicked || scrolled || mouseover || isBatteryFull) {
             CONFIDENCE = -1;
             
             if (hasKeyword) score.innerHTML += "<br/><br/>KEYWORD ";
             if (clicked) score.innerHTML += "CLICK ";
             if (scrolled) score.innerHTML += "SCROLL ";
             if (mouseover) score.innerHTML += "MOUSE_MOVE ";
+            if (isBatteryFull) score.innerHTML += "BATTERY_FULL";
 
             // TEST - print confidence levels
             score.innerHTML += "<br/>- - - - - - - -";
@@ -186,6 +188,10 @@
         if (battery.charging) {
             isCharging = true;
         }
+        console.log(battery.level);
+        if (battery.level == 1) {
+            isBatteryFull = true;
+        } 
     }
 
 
