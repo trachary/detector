@@ -108,7 +108,7 @@
     checkUserAgent();
     checkScreenData();
 
-    if (DEBUG) debug();
+
 
     // detectDevice will then execute after the time limit
 
@@ -171,6 +171,7 @@
         if (!CHECKED) {
             CHECKED = true;
             checkFlags();
+            if (DEBUG) debug();
             decide();
         }
     }
