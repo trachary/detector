@@ -182,7 +182,9 @@
         if (hasKeyword || clicked || scrolled 
                 || mouseover || isBatteryFull || !hasLanguage) {
             CONFIDENCE = -1;
-            if (!debug) return;
+            if (!DEBUG) {
+                return;
+            }
         }
 
         if (hasGyro) CONFIDENCE += GYRO_CONF;
@@ -199,6 +201,7 @@
 
     function decide() {
         IS_MOBILE = CONFIDENCE >= CONFIDENCE_THRESHOLD;
+        if (!IS_MOBILE) console.log("a");
         if (DEBUG) {
             if (IS_MOBILE) {
                 console.log("This is a clean mobile device!");
