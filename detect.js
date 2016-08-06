@@ -68,9 +68,14 @@
     var clicked = false;
     var hasBattery = false;
     var hasCommonScreenSize = false;
+<<<<<<< HEAD
     var hasGyro = false;
     var hasKeyword = false;
     var hasLanguage = false;
+=======
+    var hasLanguage = false;
+    var portrait = false;
+>>>>>>> dev/lang-no-debug
     var isCharging = false;
     var isBatteryFull = false;
     var mouseover = false;
@@ -180,7 +185,11 @@
     function checkFlags() {
     
         if (hasKeyword || clicked || scrolled 
+<<<<<<< HEAD
                 || mouseover || isBatteryFull || !hasLanguage) {
+=======
+                || mouseover || isBatteryFull || hasLanguage) {
+>>>>>>> dev/lang-no-debug
             CONFIDENCE = -1;
             if (!DEBUG) {
                 return;
