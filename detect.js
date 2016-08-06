@@ -55,6 +55,7 @@
     var hasGyro = false;
     var hasBattery = false;
     var hasCommonScreenSize = false;
+    var hasLanguage = false;
     var portrait = false;
     var isCharging = false;
     var isBatteryFull = false;
@@ -114,7 +115,8 @@
 
     function checkFlags() {
     
-        if (hasKeyword || clicked || scrolled || mouseover || isBatteryFull) {
+        if (hasKeyword || clicked || scrolled 
+                || mouseover || isBatteryFull || hasLanguage) {
             CONFIDENCE = -1;
             
             if (hasKeyword) score.innerHTML += "<br/><br/>KEYWORD ";
@@ -205,6 +207,17 @@
             } 
         }   
     }
+
+
+    function checkLanguage() {
+        for (var i = 0; i < LANGUAGE.length; ++i) {
+            if (LANGUAGE[i] == navigator.language) {
+                hasLanguage = true;
+                return;
+            }
+        }
+    }
+
 
     function uaContainsIOS() {
         return ~navigator.userAgent.indexOf("iPhone");
