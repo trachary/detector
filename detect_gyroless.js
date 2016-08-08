@@ -19,7 +19,7 @@
     var TIME_LIMIT_IOS  = 950;
     var CHECKED         = false;
     var IS_MOBILE       = false;
-    var DEBUG           = false;
+    var DEBUG           = true;
                         
     // Confidence vars and constants
     var CONFIDENCE  = 0;
@@ -87,7 +87,7 @@
     var initGamma = null;
 
     // Add event listeners
-    window.addEventListener("deviceorientation", handleOrientation, true);
+    //window.addEventListener("deviceorientation", handleOrientation, true);
     document.addEventListener("click", handleClick, false);
     document.addEventListener("wheel", handleWheel);
     document.addEventListener("mouseover", handleMouseover);
@@ -284,6 +284,7 @@
     /*
     * Event handlers
     */
+    /*
     function handleOrientation(event) {
 
         if (DEBUG) score.innerHTML += "<br/>TIME TO GYRO: " + (Date.now() - start) + "<br/>";
@@ -315,7 +316,7 @@
         } // end outer if
         detectDevice();
     } // end handleOrientation
-
+*/
 
     function handleClick(event) {
         if (DEBUG) {
