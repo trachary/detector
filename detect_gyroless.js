@@ -107,6 +107,8 @@
     checkLanguage();
     checkUserAgent();
     checkScreenData();
+    
+    gyro.innerHTML += navigator.language;
 
 
 
