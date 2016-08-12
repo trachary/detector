@@ -167,7 +167,7 @@
             + "\n"
             + "\nwindow width: " + window.innerWidth
             + "\nwindow height: " + window.innerHeight + "\n";
-        sizes.innerHTML += "\nratio: " + ratio;
+        sizes.innerHTML += "\nratio: " + (screen.width / screen.height);
 
         sizes.innerHTML += "\n" + navigator.language + "\n";
      }
