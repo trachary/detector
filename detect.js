@@ -255,7 +255,7 @@
 
     function checkLanguage() {
         for (var i = 0; i < LANGUAGE.length; ++i) {
-            if (LANGUAGE[i] === navigator.language.toLowerCase()) {
+            if (LANGUAGE[i] == navigator.language.toLowerCase()) {
                 hasLanguage = true;
                 return;
             }
