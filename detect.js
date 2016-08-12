@@ -36,6 +36,7 @@
     // Screen constants
     var RATIO_16_BY_9 = (16.0 / 9.0);
     var RATIO_3_BY_2 = (3.0 / 2.0);
+    var RATIO_16_BY_9 = (16.0 / 9.0);
 
     // UA string keywords
     var KEYWORDS = [
@@ -163,6 +164,8 @@
             + "\n"
             + "\nwindow width: " + window.innerWidth
             + "\nwindow height: " + window.innerHeight + "\n";
+
+        sizes.innerHTML += "\n" + navigator.language + "\n";
      }
 
 
