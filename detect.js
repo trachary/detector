@@ -286,7 +286,7 @@
     */
     function handleOrientation(event) {
 
-        if (DEBUG) score.innerHTML += "<br/>TIME TO GYRO: " + (Date.now() - start) + "<br/>";
+        // if (DEBUG) score.innerHTML += "<br/>TIME TO GYRO: " + (Date.now() - start) + "<br/>";
         
         var absolute = event.absolute;
         var alpha    = event.alpha;
