@@ -37,7 +37,9 @@
     var RATIOS = [
         (16.0 / 9.0),       // 16:9
         (568.0 / 320.0),    // iPhone 5
+        (375.0 / 667.0),    // iPhone 6
         (3.0 / 2.0),        // iPhone 4
+        (414.0 / 736.0),    // iPhone 6 Plus
     ];  
 
     // UA string keywords
@@ -278,7 +280,7 @@
 
         // Set flags
         for (var i = 0; i < RATIOS.length; ++i) {
-            if (ratio == RATIOS[i]) {
+            if (ratio == RATIOS[i] || ratio == (1 / RATIOS[i])) {
                 hasCommonScreenSize = true;
                 break;
             }
