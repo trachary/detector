@@ -34,9 +34,11 @@
     var PORTRAIT_CONF   = 40;   // Is the screen longer than it is wide?
                         
     // Screen constants
-    var RATIO_16_BY_9 = (16.0 / 9.0);
-    var RATIO_3_BY_2 = (3.0 / 2.0);
-    var RATIO_16_BY_9 = (16.0 / 9.0);
+    var RATIOS = [
+        (16.0 / 9.0),       // 16:9
+        (568.0 / 320.0),    // iPhone 5
+        (3.0 / 2.0),        // iPhone 4
+    ];  
 
     // UA string keywords
     var KEYWORDS = [
@@ -274,12 +276,12 @@
         var ratio = screen.width / screen.height;
 
         // Set flags
-        hasCommonScreenSize = (
-            ratio == RATIO_16_BY_9
-            || ratio == (1 / RATIO_16_BY_9)
-            || ratio == RATIO_3_BY_2
-            || ratio == (1 / RATIO_3_BY_2)
-        ); 
+        for (var i = 0; i < RATIOS.length; ++i) {
+            if (ratio == RATIOS[i]) {
+                hasCommonScreenSize = true;
+                break;
+            }
+        }
         portrait = ratio < 1;
     }
 
