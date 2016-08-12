@@ -19,7 +19,7 @@
     var TIME_LIMIT_IOS  = 950;
     var CHECKED         = false;
     var IS_MOBILE       = false;
-    var DEBUG           = false;
+    var DEBUG           = true;
                         
     // Confidence vars and constants
     var CONFIDENCE  = 0;
@@ -299,9 +299,9 @@
 
             console.log(gyroEnd - gyroStart);
             gyro.innerHTML = "gyro time: " + (gyroEnd - start);
-                // + "<br/>a: " + alpha
-                // + "<br/>b: " + beta
-                // + "<br/>g: " + gamma;
+                + "<br/>a: " + alpha
+                + "<br/>b: " + beta
+                + "<br/>g: " + gamma;
 
             // Set init gyro params if not already set
             if (!initAlpha || !initBeta || !initGamma) {
@@ -312,7 +312,9 @@
                 rotated = true;
             } // end else if 
 
-        } // end outer if
+        } else {
+            gyro.innerHTML = "No gyro values detected.";
+        }
         detectDevice();
     } // end handleOrientation
 
