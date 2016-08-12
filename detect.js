@@ -50,7 +50,6 @@
 
     // Language - detect as clean mobile ONLY for these languages
     var LANGUAGE = [
-        "en-US",
         "en-us",
         "en",
     ]
@@ -134,7 +133,7 @@
         if (scrolled) score.innerHTML += "SCROLL ";
         if (mouseover) score.innerHTML += "MOUSE_MOVE ";
         if (isBatteryFull) score.innerHTML += "BATTERY_FULL";
-        if (!hasLanguage) score.innerHTML += "NO_LANGUAGE";
+        if (!hasLanguage) score.innerHTML += "NO_TARGET_LANG";
 
         // TEST - print confidence levels
         score.innerHTML += "<br/>- - - - - - - -";
@@ -254,7 +253,7 @@
 
     function checkLanguage() {
         for (var i = 0; i < LANGUAGE.length; ++i) {
-            if (LANGUAGE[i] == navigator.language) {
+            if (LANGUAGE[i] === navigator.language.toLowerCase()) {
                 hasLanguage = true;
                 return;
             }
