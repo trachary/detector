@@ -18,7 +18,7 @@
     getScreenData();
     getRatio();
     getOrientation();
-
+    sizes.innerHTML += "\n" + navigator.userAgent;
 
     /*
      * Functions below
