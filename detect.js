@@ -47,6 +47,7 @@
     // Language - detect as clean mobile ONLY for these languages
     var LANGUAGE = [
         "en-US",
+        "en-us",
         "en",
     ]
 
