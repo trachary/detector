@@ -172,7 +172,7 @@
 
         sizes.innerHTML += "\n" + navigator.language + "\n" + navigator.language.toLowerCase() + "\n";
         sizes.innerHTML += "lower: " 
-            + navigator.languages == navigator.language.toLowerCase();
+            + navigator.language == navigator.language.toLowerCase();
      }
 
 
