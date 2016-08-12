@@ -170,9 +170,11 @@
             + "\nwindow height: " + window.innerHeight + "\n";
         sizes.innerHTML += "\nratio: " + (screen.width / screen.height);
 
+
+
         sizes.innerHTML += "\n" + navigator.language + "\n" + navigator.language.toLowerCase() + "\n";
         sizes.innerHTML += "lower: " 
-            + navigator.language == navigator.language.toLowerCase();
+            + (navigator.language == navigator.language.toLowerCase());
      }
 
 
