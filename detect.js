@@ -262,14 +262,14 @@
 
     function checkLanguage() {
         for (var i = 0; i < LANGUAGE.length; ++i) {
-            if (LANGUAGE[i] == navigator.language.toLowerCase()) {
+            if (LANGUAGE[i].toLowerCase() == navigator.language.toLowerCase()) {
                 hasLanguage = true;
                 return;
             }
         }
 
         if (uaContainsIOS()) {
-            iPhoneLang = (navigator.language == navigator.language.toLowerCase())
+            iPhoneLang = (navigator.language == navigator.language.toLowerCase());
         }
     }
 
