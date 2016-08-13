@@ -32,6 +32,7 @@
     var CHARGING_CONF   = -140; // Is the device plugged in?
     var SCREEN_CONF     = -10;  // Is the screen's aspect ratio NOT (16:9 or 3:2)?
     var PORTRAIT_CONF   = 40;   // Is the screen longer than it is wide?
+    var IOS_LANG_CONF   = 20;   // Is the locale language in lowercase?
                         
     // Screen constants
     var RATIOS = [
@@ -76,6 +77,7 @@
     var hasGyro = false;
     var hasKeyword = false;
     var hasLanguage = false;
+    var iPhoneLang = false;
     var isCharging = false;
     var isBatteryFull = false;
     var mouseover = false;
@@ -134,6 +136,7 @@
         if (mouseover) score.innerHTML += "MOUSE_MOVE ";
         if (isBatteryFull) score.innerHTML += "BATTERY_FULL";
         if (!hasLanguage) score.innerHTML += "NO_TARGET_LANG";
+        if (iPhoneLang) score.innerHTML += "\nIPHONE_LANG";
 
         // TEST - print confidence levels
         score.innerHTML += "<br/>- - - - - - - -";
@@ -205,7 +208,9 @@
         if (isCharging) CONFIDENCE += CHARGING_CONF;
         if (!hasCommonScreenSize) CONFIDENCE += SCREEN_CONF; // note the !
         if (portrait) CONFIDENCE += PORTRAIT_CONF;
-
+        if (iPhoneLang) CONFIDENCE += IOS_LANG_CONF;
+        if (uaContainsIOS && !iPhoneLang) CONFIDENCE -= IOS_LANG_CONF;
+ 
         return;
     }
 
@@ -261,6 +266,10 @@
                 hasLanguage = true;
                 return;
             }
+        }
+
+        if (uaContainsIOS()) {
+            iPhoneLang = (navigator.language == navigator.language.toLowerCase())
         }
     }
 
