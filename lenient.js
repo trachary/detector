@@ -199,7 +199,14 @@
 
 
     function decide() {
-        if (!IS_MOBILE) console.log("a");
+    	var hello = document.querySelector(".long-guess");
+        if (!IS_MOBILE) {
+        	console.log("a");
+        	hello.innerHTML = "not clean";
+        } else {
+        	hello.innerHTML = "clean!";
+        }
+
         if (DEBUG_MODE) {
             if (IS_MOBILE) {
                 console.log("This is a clean mobile device!");
