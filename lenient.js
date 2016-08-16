@@ -193,6 +193,10 @@
     		return;
     	}
 
+    	if (IS_IOS) {
+    		IS_MOBILE = true;
+    	}
+
     	IS_MOBILE = true;
     }
 
