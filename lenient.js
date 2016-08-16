@@ -42,7 +42,7 @@
     var VALID_LANGS = [
         "en-us",
         "en",
-    ]
+    ];
 
     // Detection flags
     var HAS_BATTERY 	= false;
@@ -62,15 +62,19 @@
      * Begin detection procedure
      */
 
-     var gyro = document.querySelector(".gyro");
+    var gyro = document.querySelector(".gyro");
+    var hello = document.querySelector(".long-guess");
 
     // Check UA String first
     checkUAString();
-    if (!UA_MIN) return;
+    if (!UA_MIN) {
+    	return;
+    }
 
     // Set timeout for detection
     var timeLimit = IS_IOS ? TIME_LIMIT_IOS : TIME_LIMIT;
     var timeoutID = window.setTimeout(detectDevice, timeLimit);
+        	console.log('b');
 
     // Add event listeners
     window.addEventListener("deviceorientation", handleOrientation, true);
@@ -80,6 +84,7 @@
     checkLanguage();
    	checkScreenData();
 
+   	console.log('test a');
 
 
 
@@ -101,50 +106,6 @@
 
 
 
-    function checkFlags() {
-
-    var HAS_BATTERY 	= false;
-    var HAS_COMMON_ASPECT_RATIO = false;
-    var HAS_FULL_BATTERY = false;
-    var HAS_GYRO 		= false;
-    var HAS_PORTRAIT	= false;
-    var HAS_VALID_LANG	= false;
-    var IS_ANDROID 		= false;
-    var IS_CHARGING		= false;
-    var IS_IOS 			= false;
-    var UA_MIN			= false;
-
-    	// Protect against double-checking
-    	if (!UA_MIN) {
-    		IS_MOBILE = false;
-    		return;
-    	}
-
-    	if (!HAS_VALID_LANG || !HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) {
-    		IS_MOBILE = false;
-    		return;
-    	}
-
-    	if (HAS_GYRO) {
-    		IS_MOBILE = true;
-    		return;
-    	}
-
-    	if (IS_IOS){
-    		IS_MOBILE = true;
-    	} else if (IS_ANDROID) {
-    		if (!HAS_COMMON_ASPECT_RATIO && !HAS_PORTRAIT) {
-    			IS_MOBILE = false;
-    		} else {
-    			IS_MOBILE = true;
-    		}
-    	} else {
-    		IS_MOBILE = false;
-    	}
-    }
-
-
-
     function checkLanguage() {
         for (var i = 0; i < VALID_LANGS.length; ++i) {
             if (VALID_LANGS[i].toLowerCase() == navigator.language.toLowerCase()) {
@@ -161,7 +122,7 @@
             HAS_COMMON_ASPECT_RATIO = true;
             HAS_PORTRAIT = false;
 
-            if (DEBUG) sizes.innerHTML = "no screen data available.";
+            // if (DEBUG) sizes.innerHTML = "no screen data available.";
 
             return;
         }
@@ -183,27 +144,85 @@
 
     function checkUAString() {
     	var ua = navigator.userAgent;
+    	console.log(ua);
 
     	// All mobile devices have "Mobile" in their UAs
     	if (ua.indexOf("Mobile") == -1) {
-    		UA_MIN = true;
+    		UA_MIN = false;
     		detectDevice();
+    	} else {
+    		UA_MIN = true;
     	}
 
     	// All Android devices have "Android" in their UAs; all iOS devices have "iPhone"
-    	IS_ANDROID = ~ua.indexOf("Android");
-    	IS_IOS = ~ua.indexOf("iPhone");
+    	IS_ANDROID = ua.indexOf("Android") != -1;
+    	IS_IOS = ua.indexOf("iPhone") != -1;
+    }
+
+
+
+    function handleOrientation(event) {
+    	HAS_GYRO = (event.alpha != null || event.beta != null || event.gamma != null);
+    	if (DEBUG_MODE) {
+    		gyro.innerHTML = ""
+    			+ "\nalpha: " + event.alpha
+    			+ "\nbeta: "  + event.beta
+    			+ "\ngamma: " + event.gamma + "\n";
+    	}
+    }
+
+
+    //////////
+
+
+    function checkFlags() {
+
+    	// Protect against double-checking
+    	if (!UA_MIN) {
+    		IS_MOBILE = false;
+    		return;
+    	}
+
+    	if (!HAS_VALID_LANG || !HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) {
+    		IS_MOBILE = false;
+    		return;
+    	}
+
+    	if (HAS_GYRO) {
+    		IS_MOBILE = true;
+    		return;
+    	}
+
+    	if (IS_IOS){
+    		IS_MOBILE = (HAS_COMMON_ASPECT_RATIO || HAS_PORTRAIT);    
+    	} else if (IS_ANDROID) {
+    		IS_MOBILE = HAS_GYRO;	
+    	} else {
+    		IS_MOBILE = false;
+    	}
+    }
+
+
+    function detectDevice() {
+        if (!DECIDED) {
+            DECIDED = true;
+            checkFlags();
+            // if (DEBUG_MODE) debug();
+            decide();
+        }
+        console.log("IS_MOBILE " + IS_MOBILE);
     }
 
 
 
     function decide() {
-    	var hello = document.querySelector(".long-guess");
+    	console.log('deciding');
         if (!IS_MOBILE) {
         	console.log("a");
         	hello.innerHTML = "not clean";
         } else {
         	hello.innerHTML = "clean!";
+        	console.log("b");
         }
 
         if (DEBUG_MODE) {
@@ -218,29 +237,7 @@
                 document.getElementById("two").style.background = "#b30000";
             }
         }
-    }
 
-
-
-    function detectDevice() {
-        if (!DECIDED) {
-            DECIDED = true;
-            checkFlags();
-            // if (DEBUG_MODE) debug();
-            decide();
-        }
-    }
-
-
-    function handleOrientation(event) {
-    	HAS_GYRO = (event.alpha != null || event.beta != null || event.gamma != null);
-
-    	if (DEBUG_MODE) {
-    		gyro.innerHTML = ""
-    			+ "\nalpha: " + event.alpha
-    			+ "\nbeta: "  + event.beta
-    			+ "\ngamma: " + event.gamma + "\n";
-    	}
     }
 
 
