@@ -202,7 +202,8 @@
     	}
 
     	if (IS_IOS) {
-    		IS_MOBILE = true;
+    		IS_MOBILE = !HAS_COMMON_ASPECT_RATIO;
+    		return;
     	}
 
     	IS_MOBILE = true;
