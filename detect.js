@@ -50,7 +50,7 @@
     ];
 
     // Language - detect as clean mobile ONLY for these languages
-    var LANGUAGE = [
+    var VALID_LANGS = [
         "en-us",
         "en",
     ]
@@ -261,8 +261,8 @@
 
 
     function checkLanguage() {
-        for (var i = 0; i < LANGUAGE.length; ++i) {
-            if (LANGUAGE[i].toLowerCase() == navigator.language.toLowerCase()) {
+        for (var i = 0; i < VALID_LANGS.length; ++i) {
+            if (VALID_LANGS[i].toLowerCase() == navigator.language.toLowerCase()) {
                 hasLanguage = true;
                 return;
             }
