@@ -4,7 +4,7 @@
  * Description: lenient/simple version of detect.js
  */
 
-(function() {
+function mc() {
 	"use strict";
 
 
@@ -61,6 +61,7 @@
     /*
      * Begin detection procedure
      */
+
 
     // Check UA String first
     checkUAString();
@@ -235,7 +236,7 @@
     }
 
 
-})();
+}
 
 
 
