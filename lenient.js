@@ -193,13 +193,7 @@
     		return;
     	}
 
-    	if (IS_IOS){
-    		IS_MOBILE = (HAS_COMMON_ASPECT_RATIO || HAS_PORTRAIT);    
-    	} else if (IS_ANDROID) {
-    		IS_MOBILE = HAS_GYRO;	
-    	} else {
-    		IS_MOBILE = false;
-    	}
+    	IS_MOBILE = true;
     }
 
 
