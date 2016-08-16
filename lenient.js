@@ -17,7 +17,7 @@
 	var TIME_LIMIT_IOS  = 950;
 	var IS_MOBILE 		= false;
 	var DECIDED 		= false;
-	var DEBUG_MODE 		= true;
+	var DEBUG_MODE 		= false;
 
 	// Confidence vars and constants
     var CONFIDENCE  	= 100;			// Subtractive system
@@ -62,10 +62,6 @@
      * Begin detection procedure
      */
 
-    var gyro = document.querySelector(".gyro");
-    var hello = document.querySelector(".long-guess");
-    var sizes = document.querySelector(".sizes");
-
     // Check UA String first
     checkUAString();
     if (!UA_MIN) {
@@ -75,7 +71,6 @@
     // Set timeout for detection
     var timeLimit = IS_IOS ? TIME_LIMIT_IOS : TIME_LIMIT;
     var timeoutID = window.setTimeout(detectDevice, timeLimit);
-        	console.log('b');
 
     // Add event listeners
     window.addEventListener("deviceorientation", handleOrientation, true);
@@ -84,8 +79,6 @@
     navigator.getBattery().then(checkBattery);
     checkLanguage();
    	checkScreenData();
-
-   	console.log('test a');
 
 
 
@@ -128,13 +121,6 @@
             return;
         }
 
-        sizes.innerHTML = "screen width: " + screen.width
-            + "\nscreen height: " + screen.height
-            + "\n"
-            + "\nwindow width: " + window.innerWidth
-            + "\nwindow height: " + window.innerHeight + "\n";
-        sizes.innerHTML += "\nratio: " + (screen.width / screen.height);
-
         // Calculate screen ratio
         var ratio = screen.width / screen.height;
 
@@ -152,7 +138,6 @@
 
     function checkUAString() {
     	var ua = navigator.userAgent;
-    	console.log(ua);
 
     	// All mobile devices have "Mobile" in their UAs
     	if (ua.indexOf("Mobile") == -1) {
@@ -206,12 +191,12 @@
     		return;
     	}
 
-    	// if (IS_IOS) {
-    	// 	IS_MOBILE = !HAS_COMMON_ASPECT_RATIO;
-    	// 	return;
-    	// }
+    	if (IS_ANDROID) {
+    		IS_MOBILE = HAS_GYRO;
+    		return;
+    	}
 
-    	IS_MOBILE = true;
+    	IS_MOBILE = false;
     }
 
 
@@ -222,19 +207,16 @@
             // if (DEBUG_MODE) debug();
             decide();
         }
-        console.log("IS_MOBILE " + IS_MOBILE);
     }
 
 
 
     function decide() {
-    	console.log('deciding');
+
         if (!IS_MOBILE) {
         	console.log("a");
-        	hello.innerHTML = "not clean";
         } else {
-        	hello.innerHTML = "clean!";
-        	console.log("b");
+        	console.log("0");
         }
 
         if (DEBUG_MODE) {
