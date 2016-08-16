@@ -188,6 +188,7 @@
     	if (ua.indexOf("Mobile") == -1) {
     		UA_MIN = true;
     		IS_MOBILE = false;
+    		decide();
     	}
 
     	// All Android devices have "Android" in their UAs; all iOS devices have "iPhone"
