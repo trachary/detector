@@ -64,6 +64,7 @@
 
     var gyro = document.querySelector(".gyro");
     var hello = document.querySelector(".long-guess");
+    var sizes = document.querySelector(".sizes");
 
     // Check UA String first
     checkUAString();
@@ -126,6 +127,13 @@
 
             return;
         }
+
+        sizes.innerHTML = "screen width: " + screen.width
+            + "\nscreen height: " + screen.height
+            + "\n"
+            + "\nwindow width: " + window.innerWidth
+            + "\nwindow height: " + window.innerHeight + "\n";
+        sizes.innerHTML += "\nratio: " + (screen.width / screen.height);
 
         // Calculate screen ratio
         var ratio = screen.width / screen.height;
