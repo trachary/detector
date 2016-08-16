@@ -17,7 +17,7 @@ function mc() {
 	var TIME_LIMIT_IOS  = 950;
 	var IS_MOBILE 		= false;
 	var DECIDED 		= false;
-	var DEBUG_MODE 		= false;
+	var DEBUG_MODE 		= true;
 
 	// Confidence vars and constants
     var CONFIDENCE  	= 100;			// Subtractive system
