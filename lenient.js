@@ -191,6 +191,11 @@
     		return;
     	}
 
+    	if (IS_IOS) {
+    		IS_MOBILE = (!HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING);
+    		return;
+    	}
+
     	if (!HAS_VALID_LANG || !HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) {
     		IS_MOBILE = false;
     		return;
@@ -201,10 +206,10 @@
     		return;
     	}
 
-    	if (IS_IOS) {
-    		IS_MOBILE = !HAS_COMMON_ASPECT_RATIO;
-    		return;
-    	}
+    	// if (IS_IOS) {
+    	// 	IS_MOBILE = !HAS_COMMON_ASPECT_RATIO;
+    	// 	return;
+    	// }
 
     	IS_MOBILE = true;
     }
