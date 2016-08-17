@@ -88,14 +88,8 @@ checkScreenData();
 
 function checkBattery(battery) {
     HAS_BATTERY = true;
-   
-    // Detect if initially charging
-    if (battery.charging) {
-        IS_CHARGING = true;
-    }
-    if (battery.level == 1) {
-        HAS_FULL_BATTERY = true;
-    } 
+    IS_CHARGING = battery.charging;
+    HAS_FULL_BATTERY = battery.level == 1;
 }
 
 
@@ -115,9 +109,6 @@ function checkScreenData() {
     if (!screen.width || !screen.height) {
         HAS_COMMON_ASPECT_RATIO = true;
         HAS_PORTRAIT = false;
-
-        // if (DEBUG) sizes.innerHTML = "no screen data available.";
-
         return;
     }
 
@@ -182,6 +173,10 @@ function checkFlags() {
 
 	if (IS_IOS) {
 		IS_MOBILE = (HAS_BATTERY && !HAS_FULL_BATTERY && !IS_CHARGING);
+        document.querySelector('.long-guess').innerHTML = ""
+            + "\nHAS_BATTERY " + HAS_BATTERY
+            + "\nHAS_FULL_BATTERY " + HAS_FULL_BATTERY
+            + "\nIS_CHARGING " + IS_CHARGING;
 		return;
 	}
 
