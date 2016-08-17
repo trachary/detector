@@ -88,7 +88,7 @@ checkScreenData();
 
 function checkBattery(battery) {
     var end = Date.now();
-    document.querySelector('.long-guess').innerHTML += (end.start) + "ms";
+    document.querySelector('.sizes').innerHTML += "\n" + (end - start) + "ms\n";
     HAS_BATTERY = true;
     IS_CHARGING = battery.charging;
     HAS_FULL_BATTERY = battery.level == 1;
