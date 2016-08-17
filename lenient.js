@@ -4,7 +4,7 @@
  */
 
 
-var IS_MOBILE       = false;
+var IS_MOBILE = false;
 
 function mc() {
 	"use strict";
@@ -18,7 +18,7 @@ function mc() {
 	var TIME_LIMIT 		= 500;
 	var TIME_LIMIT_IOS  = 800;
 	var DECIDED 		= false;
-	var DEBUG_MODE 		= false;
+	var DEBUG_MODE 		= true;
 
 	// Confidence vars and constants
     var CONFIDENCE  	= 100;			// Subtractive system
