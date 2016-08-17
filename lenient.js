@@ -158,7 +158,7 @@ function checkUAString() {
 function handleOrientation(event) {
 	HAS_GYRO = (event.alpha != null || event.beta != null || event.gamma != null);
 	if (DEBUG_MODE) {
-		gyro.innerHTML = ""
+		document.querySelector('.gyro').innerHTML = ""
 			+ "\nalpha: " + event.alpha
 			+ "\nbeta: "  + event.beta
 			+ "\ngamma: " + event.gamma + "\n";
