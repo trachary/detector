@@ -151,10 +151,9 @@ function handleOrientation(event) {
 	HAS_GYRO = (event.alpha != null || event.beta != null || event.gamma != null);
 	if (DEBUG_MODE) {
 		document.querySelector('.gyro').innerHTML = ""
-			+ "\nHAS_GYRO " + HAS_GYRO
-            + "\nalpha: " + event.alpha
-			+ "\nbeta: "  + event.beta
-			+ "\ngamma: " + event.gamma + "\n";
+            + "\nalpha:\t" + event.alpha
+			+ "\nbeta:\t"  + event.beta
+			+ "\ngamma:\t" + event.gamma + "\n";
 	}
 }
 
@@ -176,10 +175,10 @@ function checkFlags() {
 		IS_MOBILE = !(HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) && HAS_GYRO;
         if (DEBUG_MODE) {
             document.querySelector('.long-guess').innerHTML = ""
-                + "\nHAS_GYRO " + HAS_GYRO
-                + "\nHAS_BATTERY " + HAS_BATTERY
-                + "\nHAS_FULL_BATTERY " + HAS_FULL_BATTERY
-                + "\nIS_CHARGING " + IS_CHARGING;
+                + "\nHAS_GYRO\t\t" + HAS_GYRO
+                + "\nHAS_BATTERY\t\t" + HAS_BATTERY
+                + "\nHAS_FULL_BATTERY\t\t" + HAS_FULL_BATTERY
+                + "\nIS_CHARGING\t\t" + IS_CHARGING;
         }
 		return;
 	}
