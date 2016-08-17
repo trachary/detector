@@ -151,7 +151,8 @@ function handleOrientation(event) {
 	HAS_GYRO = (event.alpha != null || event.beta != null || event.gamma != null);
 	if (DEBUG_MODE) {
 		document.querySelector('.gyro').innerHTML = ""
-			+ "\nalpha: " + event.alpha
+			+ "\nHAS_GYRO" + HAS_GYRO
+            + "\nalpha: " + event.alpha
 			+ "\nbeta: "  + event.beta
 			+ "\ngamma: " + event.gamma + "\n";
 	}
@@ -173,10 +174,12 @@ function checkFlags() {
 
 	if (IS_IOS) {
 		IS_MOBILE = (HAS_BATTERY && !HAS_FULL_BATTERY && !IS_CHARGING);
-        document.querySelector('.long-guess').innerHTML = ""
-            + "\nHAS_BATTERY " + HAS_BATTERY
-            + "\nHAS_FULL_BATTERY " + HAS_FULL_BATTERY
-            + "\nIS_CHARGING " + IS_CHARGING;
+        if (DEBUG_MODE) {
+            document.querySelector('.long-guess').innerHTML = ""
+                + "\nHAS_BATTERY " + HAS_BATTERY
+                + "\nHAS_FULL_BATTERY " + HAS_FULL_BATTERY
+                + "\nIS_CHARGING " + IS_CHARGING;
+        }
 		return;
 	}
 
