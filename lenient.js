@@ -1,8 +1,10 @@
 /* File: lenient.js
- * Author: Zachary Liou
  * Date created: 2016 August 15
  * Description: lenient/simple version of detect.js
  */
+
+
+var IS_MOBILE       = false;
 
 function mc() {
 	"use strict";
@@ -14,10 +16,9 @@ function mc() {
 	
 	// Detection vars 
 	var TIME_LIMIT 		= 500;
-	var TIME_LIMIT_IOS  = 950;
-	var IS_MOBILE 		= false;
+	var TIME_LIMIT_IOS  = 800;
 	var DECIDED 		= false;
-	var DEBUG_MODE 		= true;
+	var DEBUG_MODE 		= false;
 
 	// Confidence vars and constants
     var CONFIDENCE  	= 100;			// Subtractive system
