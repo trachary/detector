@@ -6,7 +6,7 @@
 
 var IS_MOBILE = false;
 
-
+var start = Date.now();
 
 /*
  * Init vars
@@ -87,6 +87,8 @@ checkScreenData();
  */
 
 function checkBattery(battery) {
+    var end = Date.now();
+    document.querySelector('.long-guess').innerHTML += (end.start) + "ms";
     HAS_BATTERY = true;
     IS_CHARGING = battery.charging;
     HAS_FULL_BATTERY = battery.level == 1;
@@ -172,7 +174,7 @@ function checkFlags() {
 
 
 	if (IS_IOS) {
-		IS_MOBILE = !(HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) && HAS_GYRO;
+		IS_MOBILE = !HAS_BATTERY;
         if (DEBUG_MODE) {
             document.querySelector('.long-guess').innerHTML = ""
                 + "\nHAS_GYRO\t\t" + HAS_GYRO
