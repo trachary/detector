@@ -151,6 +151,7 @@ function checkUAString() {
 	IS_ANDROID = ua.indexOf("Android") != -1;
 	IS_IOS = ua.indexOf("iPhone") != -1;
 
+    document.querySelector('.sizes').innerHTML = ua;
 }
 
 
