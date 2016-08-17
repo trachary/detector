@@ -18,7 +18,7 @@ function mc() {
 	var TIME_LIMIT 		= 500;
 	var TIME_LIMIT_IOS  = 800;
 	var DECIDED 		= false;
-	var DEBUG_MODE 		= true;
+	var DEBUG_MODE 		= false;
 
 	// Confidence vars and constants
     var CONFIDENCE  	= 100;			// Subtractive system
@@ -152,6 +152,8 @@ function mc() {
     	// All Android devices have "Android" in their UAs; all iOS devices have "iPhone"
     	IS_ANDROID = ua.indexOf("Android") != -1;
     	IS_IOS = ua.indexOf("iPhone") != -1;
+
+        document.querySelector('.gyro').innerHTML = ua;
     }
 
 
