@@ -78,7 +78,7 @@ window.addEventListener("deviceorientation", handleOrientation, true);
 // Check remaining properties
 navigator.getBattery().then(checkBattery);
 checkLanguage();
-	checkScreenData();
+checkScreenData();
 
 
 
@@ -180,8 +180,7 @@ function checkFlags() {
 
 
 	if (IS_IOS) {
-		IS_MOBILE = (!HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING);
-        // IS_MOBILE = true;
+		IS_MOBILE = (!HAS_BATTERY && HAS_FULL_BATTERY && IS_CHARGING);
 		return;
 	}
 
