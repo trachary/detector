@@ -13,8 +13,8 @@ var start = Date.now();
  */
 
 // Detection vars 
-var TIME_LIMIT 		= 500;
-var TIME_LIMIT_IOS  = 800;
+var TIME_LIMIT 		= 300;
+var TIME_LIMIT_IOS  = 50;
 var DECIDED 		= false;
 var DEBUG_MODE 		= true;
 
