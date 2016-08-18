@@ -174,7 +174,8 @@ function checkFlags() {
             + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
             + "\nIS_CHARGING\t\t" + IS_CHARGING
             + "\nHAS_VALID_LANG\t\t" + HAS_VALID_LANG
-            + "\nHAS_LCASE_LANG\t\t" + HAS_LCASE_LANG;
+            + "\nHAS_LCASE_LANG\t\t" + HAS_LCASE_LANG
+            + "\n" + navigator.language;
     }
 
 	// Protect against double-checking
