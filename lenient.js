@@ -170,7 +170,8 @@ function checkFlags() {
             + "\nHAS_GYRO\t\t" + HAS_GYRO
             + "\nHAS_BATTERY\t\t" + HAS_BATTERY
             + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
-            + "\nIS_CHARGING\t\t" + IS_CHARGING;
+            + "\nIS_CHARGING\t\t" + IS_CHARGING
+            + "\nHAS_VALID_LANG\t" + HAS_VALID_LANG;
     }
 
 	// Protect against double-checking
