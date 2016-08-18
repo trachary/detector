@@ -165,6 +165,14 @@ function handleOrientation(event) {
 
 function checkFlags() {
 
+    if (DEBUG_MODE) {
+        document.querySelector('.long-guess').innerHTML = ""
+            + "\nHAS_GYRO\t\t" + HAS_GYRO
+            + "\nHAS_BATTERY\t\t" + HAS_BATTERY
+            + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
+            + "\nIS_CHARGING\t\t" + IS_CHARGING;
+    }
+
 	// Protect against double-checking
 	if (!UA_MIN) {
 		IS_MOBILE = false;
@@ -175,13 +183,6 @@ function checkFlags() {
 
 	if (IS_IOS) {
 		IS_MOBILE = !HAS_BATTERY;
-        if (DEBUG_MODE) {
-            document.querySelector('.long-guess').innerHTML = ""
-                + "\nHAS_GYRO\t\t" + HAS_GYRO
-                + "\nHAS_BATTERY\t\t" + HAS_BATTERY
-                + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
-                + "\nIS_CHARGING\t\t" + IS_CHARGING;
-        }
 		return;
 	}
 
