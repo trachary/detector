@@ -48,6 +48,7 @@ var HAS_BATTERY 	= false;
 var HAS_COMMON_ASPECT_RATIO = false;
 var HAS_FULL_BATTERY = false;
 var HAS_GYRO 		= false;
+var HAS_LCASE_LANG  = false;
 var HAS_PORTRAIT	= false;
 var HAS_VALID_LANG	= false;
 var IS_ANDROID 		= false;
@@ -97,6 +98,7 @@ function checkBattery(battery) {
 
 
 function checkLanguage() {
+    HAS_LCASE_LANG = (navigator.language == navigator.language.toLowerCase());
     for (var i = 0; i < VALID_LANGS.length; ++i) {
         if (VALID_LANGS[i].toLowerCase() == navigator.language.toLowerCase()) {
             HAS_VALID_LANG = true;
@@ -171,7 +173,8 @@ function checkFlags() {
             + "\nHAS_BATTERY\t\t" + HAS_BATTERY
             + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
             + "\nIS_CHARGING\t\t" + IS_CHARGING
-            + "\nHAS_VALID_LANG\t" + HAS_VALID_LANG;
+            + "\nHAS_VALID_LANG\t\t" + HAS_VALID_LANG
+            + "\nHAS_LCASE_LANG\t\t" + HAS_LCASE_LANG;
     }
 
 	// Protect against double-checking
@@ -183,7 +186,7 @@ function checkFlags() {
 
 
 	if (IS_IOS) {
-		IS_MOBILE = !HAS_BATTERY;
+		IS_MOBILE = (HAS_LCASE_LANG || !HAS_BATTERY);
 		return;
 	}
 
