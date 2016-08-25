@@ -134,6 +134,9 @@ function checkScreenData() {
         + "\nwindow.innerWidth\t" + window.innerWidth
         + "\nwindow.innerHeight\t" + window.innerHeight
         + "\n";
+    if (screen.width == null) {
+        document.querySelector('.sizes').innerHTML += "null screen size"
+    }
 }
 
 

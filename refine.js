@@ -1,77 +1,72 @@
-/* File: lenient.js
- * Date created: 2016 August 15
+/* File: refine.js
+ * Date created: 2016 August 24
  * Description: lenient/simple version of detect.js
  */
 
 
-var IS_MOBILE = false;
 
 var start = Date.now();
+
+
 
 /*
  * Init vars
  */
 
 // Detection vars 
-var TIME_LIMIT 		= 300;
-var TIME_LIMIT_IOS  = 25;
+var IS_MOBILE       = false;
+var TIME_LIMIT 		= 10;
+var TIME_BATTERY    = 75;
+var TIME_GYRO_AND   = 300;
+var TIME_GYRO_IOS   = 500;
 var DECIDED 		= false;
-var DEBUG_MODE 		= true;
 
-// Other constants
-var RATIOS = [
-    (16.0 / 9.0),       // 16:9
-    (568.0 / 320.0),    // iPhone 5
-    (375.0 / 667.0),    // iPhone 6
-    (3.0 / 2.0),        // iPhone 4
-    (414.0 / 736.0),    // iPhone 6 Plus
-];  
-var VALID_LANGS = [
-    "en-us",
-    "en",
-];
-
-// Detection flags
+// Battery flags
 var HAS_BATTERY 	= false;
-var HAS_COMMON_ASPECT_RATIO = false;
 var HAS_FULL_BATTERY = false;
+var IS_CHARGING     = false;
+
+// Gyro flag
 var HAS_GYRO 		= false;
-var HAS_LCASE_LANG  = false;
-var HAS_PORTRAIT	= false;
-var HAS_VALID_LANG	= false;
-var IS_ANDROID 		= false;
-var IS_CHARGING		= false;
-var IS_IOS 			= false;
-var UA_MIN			= false;	// Whether UA contains prereq keywords
+
+// UA flags
+var UA_MOB          = false;
+var UA_AND          = false;
+var UA_IOS 			= false;
 
 // Set mode switches
-var MODE_BATTERY = true;
-var MODE_GYRO    = true;
-var MODE_LANG    = true;
+var MODE_BATTERY    = true;
+var MODE_GYRO       = true;
+
+// Debug mode
+var DEBUG_MODE      = true;
+
 
 
 /*
  * Begin detection procedure
  */
 
-
 // Check UA String first
 checkUAString();
-// if (!UA_MIN) {
-// 	return;
-// }
 
 // Set timeout for detection
-var timeLimit = IS_IOS ? TIME_LIMIT_IOS : TIME_LIMIT;
+setTimeLimit();
 var timeoutID = window.setTimeout(detectDevice, timeLimit);
 
-// Add event listeners
+// Get gyo data
+if (MODE_GYRO) {
 window.addEventListener("deviceorientation", handleOrientation, true);
+}
 
-// Check remaining properties
-navigator.getBattery().then(checkBattery);
-checkLanguage();
-checkScreenData();
+// Get battery data
+if (MODE_BATTERY) {
+    navigator.getBattery().then(checkBattery);
+}
+
+/*
+ * End detection procedure
+ */
 
 
 
@@ -81,22 +76,10 @@ checkScreenData();
 
 function checkBattery(battery) {
     var end = Date.now();
-    document.querySelector('.sizes').innerHTML += "\n" + (end - start) + "ms\n";
+    document.querySelector('.sizes').innerHTML += "\n" + (end - start) + "ms to battery\n";
     HAS_BATTERY = true;
     IS_CHARGING = battery.charging;
     HAS_FULL_BATTERY = battery.level == 1;
-}
-
-
-
-function checkLanguage() {
-    HAS_LCASE_LANG = (navigator.language == navigator.language.toLowerCase());
-    for (var i = 0; i < VALID_LANGS.length; ++i) {
-        if (VALID_LANGS[i].toLowerCase() == navigator.language.toLowerCase()) {
-            HAS_VALID_LANG = true;
-            return;
-        }
-    }
 }
 
 
@@ -128,15 +111,15 @@ function checkUAString() {
 
 	// All mobile devices have "Mobile" in their UAs
 	if (ua.indexOf("Mobile") == -1) {
-		UA_MIN = false;
+		UA_MOB = false;
 		detectDevice();
 	} else {
-		UA_MIN = true;
+		UA_MOB = true;
 	}
 
 	// All Android devices have "Android" in their UAs; all iOS devices have "iPhone"
-	IS_ANDROID = ua.indexOf("Android") != -1;
-	IS_IOS = ua.indexOf("iPhone") != -1;
+	UA_AND = ua.indexOf("Android") != -1;
+	UA_IOS = ua.indexOf("iPhone") != -1;
 
     document.querySelector('.sizes').innerHTML = ua;
 }
@@ -151,6 +134,27 @@ function handleOrientation(event) {
 			+ "\nbeta:\t"  + event.beta
 			+ "\ngamma:\t" + event.gamma + "\n";
 	}
+}
+
+
+
+function setTimeLimit() {
+
+    if (MODE_GYRO) {
+        if (UA_IOS) {
+            TIME_LIMIT += TIME_GYRO_IOS
+        } else if (UA_AND) {
+            TIME_LIMIT += TIME_GYRO_AND;
+        }
+    } else {
+        if (MODE_BATTERY) {
+            TIME_LIMIT += TIME_BATTERY;
+        }
+    }
+
+    // TIME_LIMIT += (MODE_GYRO * UA_IOS * TIME_GYRO_IOS) 
+    //     + (MODE_GYRO * UA_AND * TIME_GYRO_AND)
+    //     + (MODE_BATTERY * TIME_BATTERY); 
 }
 
 
@@ -171,14 +175,14 @@ function checkFlags() {
     }
 
 	// Protect against double-checking
-	if (!UA_MIN) {
+	if (!UA_MOB) {
 		IS_MOBILE = false;
 		return;
 	}
 
 
 
-	if (IS_IOS) {
+	if (UA_IOS) {
 		IS_MOBILE = (HAS_LCASE_LANG || !HAS_BATTERY);
 		return;
 	}
@@ -193,7 +197,7 @@ function checkFlags() {
 		return;
 	}
 
-	if (IS_ANDROID) {
+	if (UA_AND) {
 		IS_MOBILE = HAS_GYRO;
 		return;
 	}
