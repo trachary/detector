@@ -129,10 +129,10 @@ function checkScreenData() {
     HAS_PORTRAIT = ratio < 1;
 
     document.querySelector('.sizes').innerHTML += "\n"
-        + "screen.width\t" + screen.width
-        + "screen.height\t" + screen.height
-        + "window.innerWidth\t" + window.innerWidth
-        + "window.innerHeight\t" + window.innerHeight
+        + "\nscreen.width\t" + screen.width
+        + "\nscreen.height\t" + screen.height
+        + "\nwindow.innerWidth\t" + window.innerWidth
+        + "\nwindow.innerHeight\t" + window.innerHeight
         + "\n";
 }
 
