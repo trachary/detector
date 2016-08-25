@@ -28,8 +28,6 @@ var UA_IOS 			= false;
 var MODE_BATTERY    = true;
 var MODE_GYRO       = true;
 
-var DEBUG_MODE      = true;
-
 
 
 checkUAString();
@@ -52,7 +50,6 @@ function checkBattery(battery) {
     HAS_BATTERY = true;
     IS_CHARGING = battery.charging;
     HAS_FULL_BATTERY = battery.level == 1;
-    document.querySelector('.sizes').innerHTML += "\n\n" + (end - start) + "ms to battery\n";
 }
 
 
@@ -71,12 +68,6 @@ function checkUAString() {
 
 function handleOrientation(event) {
 	HAS_GYRO = (event.alpha != null || event.beta != null || event.gamma != null);
-	if (DEBUG_MODE) {
-		document.querySelector('.gyro').innerHTML = "HAS_GYRO\t" + HAS_GYRO
-            + "\nalpha:\t" + event.alpha
-			+ "\nbeta:\t"  + event.beta
-			+ "\ngamma:\t" + event.gamma + "\n";
-	}
 }
 
 
@@ -105,15 +96,6 @@ function setTimeLimit() {
 
 
 function checkFlags() {
-
-    if (DEBUG_MODE) {
-        document.querySelector('.long-guess').innerHTML = ""
-            + "\nHAS_GYRO\t\t" + HAS_GYRO
-            + "\nHAS_BATTERY\t\t" + HAS_BATTERY
-            + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
-            + "\nIS_CHARGING\t\t" + IS_CHARGING
-            + "\n" + navigator.language;
-    }
 
 	if (!UA_MOB) {
 		IS_MOBILE = false;
@@ -155,19 +137,6 @@ function decide() {
     	console.log("a");
     } else {
     	console.log("0");
-    }
-
-    if (DEBUG_MODE) {
-        if (IS_MOBILE) {
-            console.log("This is a clean mobile device!");
-            // Do stuff
-            document.getElementById("one").style.display = "block";
-            document.getElementById("two").style.display = "none";
-        } else {
-            console.log("This is NOT a clean mobile device.");
-            // Do other stuff
-            document.getElementById("two").style.background = "#b30000";
-        }
     }
 
 }
