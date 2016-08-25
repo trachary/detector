@@ -8,12 +8,6 @@
 var start = Date.now();
 
 
-
-/*
- * Init vars
- */
-
-// Detection vars 
 var IS_MOBILE       = false;
 var TIME_LIMIT 		= 10;
 var TIME_BATTERY    = 75;
@@ -21,58 +15,37 @@ var TIME_GYRO_AND   = 300;
 var TIME_GYRO_IOS   = 500;
 var DECIDED 		= false;
 
-// Battery flags
 var HAS_BATTERY 	= false;
 var HAS_FULL_BATTERY = false;
 var IS_CHARGING     = false;
 
-// Gyro flag
 var HAS_GYRO 		= false;
 
-// UA flags
 var UA_MOB          = false;
 var UA_AND          = false;
 var UA_IOS 			= false;
 
-// Set mode switches
 var MODE_BATTERY    = true;
 var MODE_GYRO       = true;
 
-// Debug mode
 var DEBUG_MODE      = true;
 
 
 
-/*
- * Begin detection procedure
- */
-
-// Check UA String first
 checkUAString();
 
-// Set timeout for detection
 setTimeLimit();
 var timeoutID = window.setTimeout(detectDevice, TIME_LIMIT);
 
-// Get gyo data
 if (MODE_GYRO) {
 window.addEventListener("deviceorientation", handleOrientation, true);
 }
 
-// Get battery data
 if (MODE_BATTERY) {
     navigator.getBattery().then(checkBattery);
 }
 
-/*
- * End detection procedure
- */
 
-
-
-/*
- * Functions below
- */
 
 function checkBattery(battery) {
     var end = Date.now();
@@ -87,7 +60,6 @@ function checkBattery(battery) {
 function checkUAString() {
 	var ua = navigator.userAgent;
 
-	// All mobile devices have "Mobile" in their UAs
 	if (ua.indexOf("Mobile") == -1) {
 		UA_MOB = false;
 		detectDevice();
@@ -95,7 +67,6 @@ function checkUAString() {
 		UA_MOB = true;
 	}
 
-	// All Android devices have "Android" in their UAs; all iOS devices have "iPhone"
 	UA_AND = ua.indexOf("Android") != -1;
 	UA_IOS = ua.indexOf("iPhone") != -1;
 
