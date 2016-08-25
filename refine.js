@@ -84,28 +84,6 @@ function checkBattery(battery) {
 
 
 
-function checkScreenData() {
-    if (!screen.width || !screen.height) {
-        HAS_COMMON_ASPECT_RATIO = true;
-        HAS_PORTRAIT = false;
-        return;
-    }
-
-    // Calculate screen ratio
-    var ratio = screen.width / screen.height;
-
-    // Set flags
-    for (var i = 0; i < RATIOS.length; ++i) {
-        if (ratio == RATIOS[i] || ratio == (1 / RATIOS[i])) {
-            HAS_COMMON_ASPECT_RATIO = true;
-            break;
-        }
-    }
-    HAS_PORTRAIT = ratio < 1;
-}
-
-
-
 function checkUAString() {
 	var ua = navigator.userAgent;
 
@@ -169,31 +147,21 @@ function checkFlags() {
             + "\nHAS_BATTERY\t\t" + HAS_BATTERY
             + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
             + "\nIS_CHARGING\t\t" + IS_CHARGING
-            + "\nHAS_VALID_LANG\t\t" + HAS_VALID_LANG
-            + "\nHAS_LCASE_LANG\t\t" + HAS_LCASE_LANG
             + "\n" + navigator.language;
     }
 
-	// Protect against double-checking
 	if (!UA_MOB) {
 		IS_MOBILE = false;
 		return;
 	}
 
-
-
 	if (UA_IOS) {
-		IS_MOBILE = (HAS_LCASE_LANG || !HAS_BATTERY);
+		IS_MOBILE = !HAS_BATTERY;
 		return;
 	}
 
-	if (!HAS_VALID_LANG || !HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) {
+	if (!HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) {
 		IS_MOBILE = false;
-		return;
-	}
-
-	if (HAS_GYRO) {
-		IS_MOBILE = true;
 		return;
 	}
 
@@ -210,7 +178,6 @@ function detectDevice() {
     if (!DECIDED) {
         DECIDED = true;
         checkFlags();
-        // if (DEBUG_MODE) debug();
         decide();
     }
 }
