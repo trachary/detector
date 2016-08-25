@@ -52,7 +52,7 @@ checkUAString();
 
 // Set timeout for detection
 setTimeLimit();
-var timeoutID = window.setTimeout(detectDevice, timeLimit);
+var timeoutID = window.setTimeout(detectDevice, TIME_LIMIT);
 
 // Get gyo data
 if (MODE_GYRO) {
@@ -76,7 +76,7 @@ if (MODE_BATTERY) {
 
 function checkBattery(battery) {
     var end = Date.now();
-    document.querySelector('.sizes').innerHTML += "\n" + (end - start) + "ms to battery\n";
+    document.querySelector('.sizes').innerHTML += "\n\n" + (end - start) + "ms to battery\n";
     HAS_BATTERY = true;
     IS_CHARGING = battery.charging;
     HAS_FULL_BATTERY = battery.level == 1;
