@@ -127,6 +127,13 @@ function checkScreenData() {
         }
     }
     HAS_PORTRAIT = ratio < 1;
+
+    sizes.innerHTML += "\n"
+        + "screen.width\t" + screen.width
+        + "screen.height\t" + screen.height
+        + "window.innerWidth\t" + window.innerWidth
+        + "window.innerHeight\t" + window.innerHeight
+        + "\n";
 }
 
 
