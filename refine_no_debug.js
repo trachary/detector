@@ -36,7 +36,7 @@ setTimeLimit();
 var timeoutID = window.setTimeout(detectDevice, TIME_LIMIT);
 
 if (MODE_GYRO) {
-window.addEventListener("deviceorientation", handleOrientation, true);
+    window.addEventListener("deviceorientation", handleOrientation, true);
 }
 
 if (MODE_BATTERY) {
