@@ -113,6 +113,12 @@ function checkFlags() {
             + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
             + "\nIS_CHARGING\t\t" + IS_CHARGING
             + "\n" + navigator.language;
+        document.querySelector('.sizes').innerHTML = ""
+            + "\nscreen.width\t\t" + screen.width
+            + "\nscreen.height\t\t" + screen.height
+            + "\nwindow.innerWidth\t" + window.innerWidth
+            + "\nwindow.innerHeight\t" + window.innerHeight
+            + "\n";
     }
 
 	if (!UA_MOB) {
