@@ -21,11 +21,15 @@ var IS_CHARGING     = false;
 
 var HAS_GYRO 		= false;
 
-var HAS_SCREEN      = false;
+var HAS_SMALL_SCREEN = false;
 
 var UA_MOB          = false;
 var UA_AND          = false;
 var UA_IOS 			= false;
+
+var UA_CRO          = false;
+var UA_FIR          = false;
+var UA_SAF          = false;
 
 var MODE_BATTERY    = true;
 var MODE_GYRO       = true;
@@ -60,8 +64,8 @@ function checkBattery(battery) {
 
 
 function checkScreenData() {
-    if (UA_IOS) {
-
+    if (UA_SAF) {
+        HAS_SMALL_SCREEN = (screen.width < 1000) && (screen.height < 1000);
     }
 }
 
@@ -74,7 +78,11 @@ function checkUAString() {
 	UA_AND = ua.indexOf("Android") != -1;
 	UA_IOS = ua.indexOf("iPhone") != -1;
 
-    document.querySelector('.sizes').innerHTML = ua;
+    if (UA_IOS) {
+        UA_CRO = ua.indexOf('CriOS') == -1;
+        UA_FIR = ua.indexOf('FxiOS') == -1;
+        UA_SAF = UA_CRO && UA_FIR && ua.indexOf("Safari");
+    }
 }
 
 
@@ -128,13 +136,19 @@ function checkFlags() {
             + "\nscreen.height\t\t" + screen.height
             + "\nwindow.innerWidth\t" + window.innerWidth
             + "\nwindow.innerHeight\t" + window.innerHeight
-            + "\n";
+            + "\n\n" + navigator.userAgent;
+
     }
 
 	if (!UA_MOB) {
 		IS_MOBILE = false;
 		return;
 	}
+
+    if (UA_SAF) {
+        IS_MOBILE = HAS_SMALL_SCREEN;
+        return;
+    }
 
 	if (UA_IOS) {
 		IS_MOBILE = !HAS_BATTERY;
