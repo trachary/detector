@@ -21,6 +21,8 @@ var IS_CHARGING     = false;
 
 var HAS_GYRO 		= false;
 
+var HAS_SCREEN      = false;
+
 var UA_MOB          = false;
 var UA_AND          = false;
 var UA_IOS 			= false;
@@ -53,6 +55,14 @@ function checkBattery(battery) {
     IS_CHARGING = battery.charging;
     HAS_FULL_BATTERY = battery.level == 1;
     document.querySelector('.sizes').innerHTML += "\n\n" + (end - start) + "ms to battery\n";
+}
+
+
+
+function checkScreenData() {
+    if (UA_IOS) {
+
+    }
 }
 
 
@@ -113,7 +123,7 @@ function checkFlags() {
             + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
             + "\nIS_CHARGING\t\t" + IS_CHARGING
             + "\n" + navigator.language;
-        document.querySelector('.sizes').innerHTML = ""
+        document.querySelector('.sizes').innerHTML += ""
             + "\nscreen.width\t\t" + screen.width
             + "\nscreen.height\t\t" + screen.height
             + "\nwindow.innerWidth\t" + window.innerWidth
