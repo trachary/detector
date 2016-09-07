@@ -61,7 +61,7 @@ function checkUAString() {
 	UA_AND = ua.indexOf("Android") != -1;
 	UA_IOS = ua.indexOf("iPhone") != -1;
 
-    document.querySelector('.sizes').innerHTML = ua;
+    //document.querySelector('.sizes').innerHTML = ua;
 }
 
 
@@ -73,7 +73,6 @@ function handleOrientation(event) {
 
 
 function setTimeLimit() {
-
     if (MODE_GYRO) {
         if (UA_IOS) {
             TIME_LIMIT += TIME_GYRO_IOS
@@ -85,60 +84,42 @@ function setTimeLimit() {
             TIME_LIMIT += TIME_BATTERY;
         }
     }
-
-    // TIME_LIMIT += (MODE_GYRO * UA_IOS * TIME_GYRO_IOS) 
-    //     + (MODE_GYRO * UA_AND * TIME_GYRO_AND)
-    //     + (MODE_BATTERY * TIME_BATTERY); 
 }
 
 
 //////////
 
 
-function checkFlags() {
+function decide() {
 
 	if (!UA_MOB) {
 		IS_MOBILE = false;
-		return;
-	}
-
-	if (UA_IOS) {
+	} else if (UA_IOS) {
 		IS_MOBILE = !HAS_BATTERY;
-		return;
-	}
-
-	if (!HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) {
+	} else if (!HAS_BATTERY || HAS_FULL_BATTERY || IS_CHARGING) {
 		IS_MOBILE = false;
-		return;
-	}
-
-	if (UA_AND) {
+	} else if (UA_AND) {
 		IS_MOBILE = HAS_GYRO;
-		return;
-	}
+	} else {
+        IS_MOBILE = false;
+    }
 
-	IS_MOBILE = false;
+    return;
 }
 
 
 function detectDevice() {
     if (!DECIDED) {
         DECIDED = true;
-        checkFlags();
         decide();
+        result();
     }
 }
 
 
 
-function decide() {
-
-    if (!IS_MOBILE) {
-    	console.log("a");
-    } else {
-    	console.log("0");
-    }
-
+function result() {
+    console.log(0 + IS_MOBILE);
 }
 
 

@@ -11,7 +11,7 @@ var start = Date.now();
 var IS_MOBILE       = false;
 var TIME_LIMIT 		= 10;
 var TIME_BATTERY    = 75;
-var TIME_GYRO_AND   = 300;
+var TIME_GYRO_AND   = 600;
 var TIME_GYRO_IOS   = 500;
 var DECIDED 		= false;
 
@@ -34,7 +34,7 @@ var UA_SAF          = false;
 var MODE_BATTERY    = true;
 var MODE_GYRO       = true;
 
-var DEBUG_MODE      = true;
+var DEBUG_MODE      = false;
 
 
 
@@ -161,7 +161,8 @@ function checkFlags() {
 	}
 
 	if (UA_AND) {
-		IS_MOBILE = HAS_GYRO;
+		// IS_MOBILE = HAS_GYRO;
+        IS_MOBILE = true;
 		return;
 	}
 
