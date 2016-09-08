@@ -9,6 +9,7 @@ var start = Date.now();
 
 
 var IS_MOBILE       = false;
+
 var TIME_LIMIT 		= 10;
 var TIME_BATTERY    = 75;
 var TIME_GYRO_AND   = 300;
@@ -25,12 +26,13 @@ var UA_MOB          = false;
 var UA_AND          = false;
 var UA_IOS 			= false;
 
-var MODE_BATTERY    = true;
-var MODE_GYRO       = true;
+var MODE_BATTERY    = false;
+var MODE_GYRO       = false;
 
 
 
 checkUAString();
+setModes(CONFIG);       // CONFIG should be set by dz.php
 
 setTimeLimit();
 var timeoutID = window.setTimeout(detectDevice, TIME_LIMIT);
@@ -60,14 +62,22 @@ function checkUAString() {
 	UA_MOB = ua.indexOf("Mobile") != -1;
 	UA_AND = ua.indexOf("Android") != -1;
 	UA_IOS = ua.indexOf("iPhone") != -1;
-
-    //document.querySelector('.sizes').innerHTML = ua;
 }
 
 
 
 function handleOrientation(event) {
 	HAS_GYRO = (event.alpha != null || event.beta != null || event.gamma != null);
+}
+
+
+
+function setModes(config) {
+    var MASK_BATTERY = 2;
+    var MASK_GYRO = 1;
+
+    MODE_BATTERY = config & MASK_BATTERY;
+    MODE_GYRO = config & MASK_GYRO;
 }
 
 
