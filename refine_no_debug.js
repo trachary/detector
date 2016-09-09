@@ -169,7 +169,7 @@ function detectDevice() {
 
 function result() {
     console.log(0 + IS_MOBILE);
-    document.querySelector('sizes').innerHTML = IS_MOBILE;
+    document.querySelector('.sizes').innerHTML = IS_MOBILE;
 }
 
 
