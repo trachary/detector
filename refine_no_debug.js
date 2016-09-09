@@ -44,7 +44,7 @@ var GYRO_EXISTS 	= false;
  * Begin detection procedure
  */
 
-
+CONFIG = 3;
 checkUAString();
 setModes(CONFIG);       // CONFIG should be set by dz.php
 setTimeLimit();       
@@ -169,6 +169,7 @@ function detectDevice() {
 
 function result() {
     console.log(0 + IS_MOBILE);
+    document.getElementById('sizes').innerHTML = IS_MOBILE;
 }
 
 
