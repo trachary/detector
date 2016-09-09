@@ -161,7 +161,7 @@ function detectDevice() {
     if (!DECIDED) {
         DECIDED = true;
         decide();
-        //result();
+        result();
     }
 }
 
