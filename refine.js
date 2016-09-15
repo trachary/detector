@@ -92,9 +92,6 @@ function checkBattery(battery) {
     BATT_ACCESS = true;
     BATT_CHARGING = battery.charging;
     BATT_FULL = battery.level == 1;
-    if (DEBUG_MODE) {
-        document.querySelector('.sizes').innerHTML += "\n\n" + (end - start) + "ms to battery\n";
-    }
 }
 
 
