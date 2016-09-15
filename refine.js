@@ -148,7 +148,7 @@ function decide() {
         document.querySelector('.long-guess').innerHTML = ""
             + "\nGYRO_EXISTS\t\t" + GYRO_EXISTS
             + "\nBATT_ACCESS\t\t" + BATT_ACCESS
-            + "\nBATT_FULL\t" + BATT_FULL
+            + "\nBATT_FULL\t\t" + BATT_FULL
             + "\nBATT_CHARGING\t\t" + BATT_CHARGING
             + "\n" + navigator.language;
         document.querySelector('.sizes').innerHTML += ""
