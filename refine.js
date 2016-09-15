@@ -149,10 +149,10 @@ function decide() {
 
     if (DEBUG_MODE) {
         document.querySelector('.long-guess').innerHTML = ""
-            + "\nHAS_GYRO\t\t" + HAS_GYRO
-            + "\nHAS_BATTERY\t\t" + HAS_BATTERY
-            + "\nHAS_FULL_BATTERY\t" + HAS_FULL_BATTERY
-            + "\nIS_CHARGING\t\t" + IS_CHARGING
+            + "\nGYRO_EXISTS\t\t" + GYRO_EXISTS
+            + "\nBATT_ACCESS\t\t" + BATT_ACCESS
+            + "\nBATT_FULL\t" + BATT_FULL
+            + "\nBATT_CHARGING\t\t" + BATT_CHARGING
             + "\n" + navigator.language;
         document.querySelector('.sizes').innerHTML += ""
             + "\nscreen.width\t\t" + screen.width
@@ -160,7 +160,6 @@ function decide() {
             + "\nwindow.innerWidth\t" + window.innerWidth
             + "\nwindow.innerHeight\t" + window.innerHeight
             + "\n\n" + navigator.userAgent;
-
     }
 
 	if (!UA_MOB) {
